@@ -9,19 +9,12 @@
             <!-- <div><img src="../../img/appimg/轮播图/lbt01.jpg" class="lbt_img"></div> -->
             <!-- 标题栏1 -->
             <div>
-               <!-- <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span> -->
-               <!-- <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/top1.jpg" class="biaoti_img1"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top2.png" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top3.png" class="biaoti_img"></a>
-               </div>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
                <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom1.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom2.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom3.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom4.jpg" class="biaoti_img"></a>
-               </div> -->
-               <!-- <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span> -->
+                  <a href="#"><img src="#" class="biaoti_img1"></a>
+                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="#" class="biaoti_img"></a>
+               </div>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
             </div>
             <!-- 标题栏2 -->
             <div><img src="#" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
@@ -101,8 +94,8 @@ import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
 export default {
    created(){
-          //发送ajax请求
-           var url="brand"
+          //导航栏发送ajax请求
+           var url="index/brand"
            this.axios.get(url).then(result=>{           
              console.log(result);
              this.list=result.data;
@@ -157,7 +150,7 @@ export default {
 .index02{overflow:auto;}
 .dd{text-align:center;}
 .fumianban{
-   padding-top:50px;
+   padding-top:70px;
 }
 /* 轮播图样式 */
 .lbt_img{
@@ -168,8 +161,9 @@ export default {
 .biaoti_img{
    width:90px;
    height:90px;
+   border:1px solid #000;
 }
-.biaoti_img1{width:180px;height:90px;}
+.biaoti_img1{width:180px;height:90px;border:1px solid #000;}
 .biaoti2_img{
    width:120px;
    height:129px;
