@@ -1,10 +1,10 @@
 <template>
    <div class="contents">
-      <!-- <img src="../../../img/appimg/logo.png" class="img_logo"> -->
-      <!-- <a class="search">
-            <img src="../../../img/appimg/indexsearch.png">
+      <img src="http://127.0.0.1:8095/img/appimg/index_img/logo.png" class="img_logo">
+      <a class="search">
+            <img src="http://127.0.0.1:8095/img/appimg/index_img/indexsearch.png">
       </a>
-      <a href="#" class="btn_login">登录</a> -->
+      <a href="#" class="btn_login">登录</a>
    </div>
 </template>
 <script>
@@ -17,12 +17,13 @@ export default {
 <style>
 .contents{
    display:flex;
+   width:100%;
    flex-direction:row;
    align-items:center;
    padding:6px;
    position:fixed;
    left:0;
-   background:#fff;
+   background:white;
    z-index:999;
 }
 .img_logo{
@@ -30,11 +31,14 @@ export default {
    height:50px;
 }
 .search{
+   display:block;
+   width:220px !important;
+   height:40px !important;
+   margin:0 8px;
    position:relative;
-   width:230px;
-   height:30px;
    border:1px solid #777;
    border-radius:30px;
+   
 }
 .search img{
    width:20px;

@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-        
+        123
     </div>
 </template>
 <script>
