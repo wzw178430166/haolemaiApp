@@ -1,4 +1,4 @@
-//router.js 引入路由
+//router.js 引入路由1111111111111
 import Vue from 'vue'
 import Router from 'vue-router'
 //自定义组件
