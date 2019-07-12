@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-        123
+        我是头部子组件
     </div>
 </template>
 <script>

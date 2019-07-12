@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Login from "./views/personal/Login.vue"       //登录页
 import Personal from "./views/personal/Personal.vue"       //个人中心
 import HomeIndex from "./views/index/Home_index.vue"   //首页
+
 import Product from "./views/product/Product.vue"  //引入商品列表
 import Cart from "./views/cart/Cart.vue"  //引入购物车
 import Details from "./views/details/Details.vue"  //引入产品详情页

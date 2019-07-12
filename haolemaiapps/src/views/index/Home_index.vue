@@ -1,27 +1,20 @@
 <template>
    <div class="index_content">
       <div class="index02">
-      <!-- 顶部搜索栏 -->
+      <!-- 顶部搜索栏1555555111 -->
       <hed fixed></hed>
       <!-- 面板 -->
       <mt-tab-container v-model="active" class="fumianban">
          <mt-tab-container-item id="shouye" >
-            <!-- <div><img src="../../img/appimg/轮播图/lbt01.jpg" class="lbt_img"></div> -->
+            <!-- 面板1 -->
             <!-- 标题栏1 -->
             <div>
-               <!-- <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span> -->
-               <!-- <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/top1.jpg" class="biaoti_img1"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top2.png" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top3.png" class="biaoti_img"></a>
-               </div>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
                <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom1.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom2.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom3.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom4.jpg" class="biaoti_img"></a>
-               </div> -->
-               <!-- <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span> -->
+                  <a href="#"><img src="#" class="biaoti_img1"></a>
+                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="#" class="biaoti_img"></a>
+               </div>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
             </div>
             <!-- 标题栏2 -->
             <div><img src="#" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
@@ -36,21 +29,25 @@
                  <li class="dhl_li" v-for="(elem,i) of list" :key="i"  >
                      <span class="dhl_sp">仅剩两天</span>
                      <a href="javascript:;">
-                        <img :src=elem.my_img class="dhl_img">
+                        <img :src=elem.img_url class="dhl_img">
                      </a>
                      <p class="dhl_p">
-                        <span class="jiage">{{elem.title}}</span> <!--暂时写死11111，等传数据-->
-                        活力潮服律动夏日 <span>{{elem.title_price}}</span>
+                        <span class="jiage">{{elem.title1}}</span> <!--暂时写死11111，等传数据-->
+                        活力潮服律动夏日 <span>{{elem.title2}}</span>
                      </p>
                   </li>
               </ul>
        
            </div>
-            面板1
             <div v-for="(item,i) of 100" :key="i" class="dd">ssssssssssssssssssssssssss</div> 
          </mt-tab-container-item>
+         <!-- 面板2 w22222-->
+        
+         <mt-tab-container-item id="fenlei">
+             <Panel2></Panel2>
+         </mt-tab-container-item>   
 
-         <mt-tab-container-item id="fenlei">面板2</mt-tab-container-item>      
+
          <mt-tab-container-item id="temai">面板3</mt-tab-container-item>   
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
@@ -99,10 +96,11 @@
 <script>
 import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
+import Panel2 from "./common/Panel2"
 export default {
    created(){
-          //发送ajax请求
-           var url="brand"
+          //导航栏发送ajax请求
+           var url="index/brand"
            this.axios.get(url).then(result=>{           
              console.log(result);
              this.list=result.data;
@@ -121,7 +119,8 @@ export default {
    },
    components:{
       "hed":Hed01,
-      "tabbar01":Tabbar01
+      "tabbar01":Tabbar01,
+      "Panel2":Panel2
    },methods:{
       select(n){//底部导航栏
          //创建一个循环，遍历所有按钮,然后匹配对应下标
@@ -157,7 +156,7 @@ export default {
 .index02{overflow:auto;}
 .dd{text-align:center;}
 .fumianban{
-   padding-top:50px;
+   padding-top:70px;
 }
 /* 轮播图样式 */
 .lbt_img{
@@ -168,8 +167,9 @@ export default {
 .biaoti_img{
    width:90px;
    height:90px;
+   border:1px solid #000;
 }
-.biaoti_img1{width:180px;height:90px;}
+.biaoti_img1{width:180px;height:90px;border:1px solid #000;}
 .biaoti2_img{
    width:120px;
    height:129px;
