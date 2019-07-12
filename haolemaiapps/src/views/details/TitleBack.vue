@@ -1,37 +1,18 @@
 <template>
-  <div>
+       <div>
     <div class="title_back">
        <router-link  to="/main/stat"><img src="http://127.0.0.1:8095/img/details/back.png" /></router-link>
-         <span>限时特卖</span>
+         <span>商品详情</span>
          <router-link  to="/main/stat"><img src="http://127.0.0.1:8095/img/details/goindex.png"/></router-link>
     </div>
-       <!--商品列表面板-->
-       <div class="mian">
-        
-      <div class="nav">
-       <mt-button v-for="(elem,i) of list" :key='i' :data-idx="i">{{elem}}</mt-button>
-      </div>
-   
-         <!--面板-->
-      <div>
-     <mt-tab-container v-model="active">
-       <mt-tab-container-item id="tab1">今日特卖</mt-tab-container-item>
-        <mt-tab-container-item id="tab2">购物</mt-tab-container-item>
-         <mt-tab-container-item id="tab3">休闲</mt-tab-container-item>
-         <mt-tab-container-item id="tab4">儿童</mt-tab-container-item>
-         <mt-tab-container-item id="tab5">包配</mt-tab-container-item>
-     </mt-tab-container>
-     </div>
-       </div>
-       <!--结束商品面板-->
-    </div>
+        </div>
 </template>
 
 <script>
 export default {
     data(){
         return {
-         list:["今日特卖","服装","鞋靴","儿童","包配"],    //复选框
+         list:["今日特卖","服装","鞋靴","儿童","包配"],    //复选框111
          active:"tab1"
         
         }
