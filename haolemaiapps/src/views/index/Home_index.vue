@@ -6,7 +6,7 @@
       <!-- 面板 -->
       <mt-tab-container v-model="active" class="fumianban">
          <mt-tab-container-item id="shouye" >
-            <!-- <div><img src="../../img/appimg/轮播图/lbt01.jpg" class="lbt_img"></div> -->
+            <!-- 面板1 -->
             <!-- 标题栏1 -->
             <div>
                <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
@@ -39,11 +39,15 @@
               </ul>
        
            </div>
-            面板1
             <div v-for="(item,i) of 100" :key="i" class="dd">ssssssssssssssssssssssssss</div> 
          </mt-tab-container-item>
+         <!-- 面板2 -->
+        
+         <mt-tab-container-item id="fenlei">
+             <Panel2></Panel2>
+         </mt-tab-container-item>   
 
-         <mt-tab-container-item id="fenlei">面板2</mt-tab-container-item>      
+
          <mt-tab-container-item id="temai">面板3</mt-tab-container-item>   
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
@@ -92,6 +96,7 @@
 <script>
 import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
+import Panel2 from "./common/Panel2"
 export default {
    created(){
           //导航栏发送ajax请求
@@ -114,7 +119,8 @@ export default {
    },
    components:{
       "hed":Hed01,
-      "tabbar01":Tabbar01
+      "tabbar01":Tabbar01,
+      "Panel2":Panel2
    },methods:{
       select(n){//底部导航栏
          //创建一个循环，遍历所有按钮,然后匹配对应下标
