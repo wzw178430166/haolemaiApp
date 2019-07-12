@@ -1,47 +1,39 @@
 <template>
-<!--
    <div class="index_content">
       <div class="index02">
-       顶部搜索栏 
+      <!-- 顶部搜索栏1555555111 -->
       <hed fixed></hed>
-      面板 
+      <!-- 面板 -->
       <mt-tab-container v-model="active" class="fumianban">
          <mt-tab-container-item id="shouye" >
-            <div><img src="../../img/appimg/轮播图/lbt01.jpg" class="lbt_img"></div>
-             标题栏1 
+            <!-- <div><img src="../../img/appimg/轮播图/lbt01.jpg" class="lbt_img"></div> -->
+            <!-- 标题栏1 -->
             <div>
-               <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
                <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/top1.jpg" class="biaoti_img1"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top2.png" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/top3.png" class="biaoti_img"></a>
+                  <a href="#"><img src="#" class="biaoti_img1"></a>
+                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="#" class="biaoti_img"></a>
                </div>
-               <div>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom1.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom2.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom3.jpg" class="biaoti_img"></a>
-                  <a href="#"><img src="../../img/appimg/标题栏/bottom4.jpg" class="biaoti_img"></a>
-               </div>
-               <span><img src="../../img/appimg/标题栏/kong.png" class="s1"></span>
+               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
             </div>
-             标题栏2 
+            <!-- 标题栏2 -->
             <div><img src="#" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
-             导航栏    
+            <!-- 导航栏 -->    
             <div class="d_navbar">
-               <a href="javacript:;" v-for="(item,i) of navbar" :key="i" class="navbars" :class="i==navbara?'navbara':''"  @click="pitchOn(i)">{{navbar[i]}}</a>
+               <a href="javascript:;" v-for="(item,i) of navbar" :key="i" class="navbars" :class="i==navbara?'navbara':''"  @click="pitchOn(i)">{{navbar[i]}}</a>
             </div> 
            <div>
-              根据导航栏的i和ul的j匹配 
-               显示一个ul，其余所有ul都是display：none。给ul设置一个标记，一但匹配到下标就显示 
+              <!-- 根据导航栏的i和ul的j匹配 -->
+              <!-- 显示一个ul，其余所有ul都是display：none。给ul设置一个标记，一但匹配到下标就显示 -->
               <ul class="dhl_ul" v-for="(elem,j) of navbar" :key="j" :class="j==navbara?'xs':''">
-                 <li class="dhl_li" v-for="(elem,i) of 3" :key="i"  >
+                 <li class="dhl_li" v-for="(elem,i) of list" :key="i"  >
                      <span class="dhl_sp">仅剩两天</span>
                      <a href="javascript:;">
-                        <img :src=dhlImg[j] class="dhl_img">
+                        <img :src=elem.my_img class="dhl_img">
                      </a>
                      <p class="dhl_p">
-                        <span class="jiage">99元起</span> 暂时写死，等传数据
-                        活力潮服律动夏日 <span>{{navbar[j]}}</span>
+                        <span class="jiage">{{elem.title}}</span> <!--暂时写死11111，等传数据-->
+                        活力潮服律动夏日 <span>{{elem.title_price}}</span>
                      </p>
                   </li>
               </ul>
@@ -56,44 +48,44 @@
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
          </mt-tab-container>   
-       底部导航栏 
+      <!-- 底部导航栏 -->
       <mt-tabbar v-model="active" fixed>
          <mt-tab-item id="shouye" @click.native="select(0)">
             <tabbar01 
-            :tu1="require('../../img/appimg/tabbar_shouye1.png')"
-            :tu2="require('../../img/appimg/tabbar_shouye0.png')"
+            tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye1.png"
+            tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye0.png"
             :panduan="torf[0].s"
             ></tabbar01>
          </mt-tab-item>
-         <mt-tab-item id="fenlei" @click.native="select(1)">
-           <tabbar01
-            :tu1="require('../../img/appimg/tabbar_fenlei1.png')"
-            :tu2="require('../../img/appimg/tabbar_fenlei0.png')" 
+          <mt-tab-item id="fenlei" @click.native="select(1)">
+            <tabbar01
+            tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_fenlei1.png"
+            tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_fenlei0.png"
             :panduan="torf[1].s"
             ></tabbar01>
          </mt-tab-item>
             <mt-tab-item id="temai" @click.native="select(2)">
             <tabbar01 
-            :tu1="require('../../img/appimg/tabbar_temai1.png')"
-            :tu2="require('../../img/appimg/tabbar_temai0.png')"
+            tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_temai1.png"
+            tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_temai0.png"
             :panduan="torf[2].s"
             ></tabbar01>
          </mt-tab-item>
          <mt-tab-item id="gouwuche" @click.native="select(3)">
             <tabbar01 
-            :tu1="require('../../img/appimg/tabbar_gouche1.png')"
-            :tu2="require('../../img/appimg/tabbar_gouche0.png')"
+            tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_gouche1.png"
+            tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_gouche0.png"
             :panduan="torf[3].s"
             ></tabbar01>
          </mt-tab-item>
          <mt-tab-item id="user" @click.native="select(4)">
             <tabbar01 
-            :tu1="require('../../img/appimg/user1.png')"
-            :tu2="require('../../img/appimg/user0.png')"
+            tu1="http://127.0.0.1:8095/img/appimg/index_img/user1.png"
+            tu2="http://127.0.0.1:8095/img/appimg/index_img/user0.png"
             :panduan="torf[4].s"
             ></tabbar01>
          </mt-tab-item>
-      </mt-tabbar>
+      </mt-tabbar> 
       </div>
    </div>
 </template>
@@ -102,25 +94,21 @@ import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
 export default {
    created(){
-      
+          //导航栏发送ajax请求
+           var url="index/brand"
+           this.axios.get(url).then(result=>{           
+             console.log(result);
+             this.list=result.data;
+             console.log(this.list);
+          })
    },
    data(){
       return{
          action:true,
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
-         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],
-         //创建一个二维数组来保存ul和li的数据
-         dhlImg:[
-            //   require("../../img/appimg/商品展示/shangpin1.jpg"),
-            //   require("../../img/appimg/商品展示/shangpin2.jpg"),
-            //   require("../../img/appimg/商品展示/shangpin3.jpg"),         
-            //   require("../../img/appimg/商品展示/shangpin4.jpg"),
-           //    require("../../img/appimg/商品展示/shangpin5.jpg"),
-           //    require("../../img/appimg/商品展示/shangpin6.jpg"),
-               
-
-            ],
+         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],   
+         list:[],      
          navbara:0
       };
    },
@@ -128,7 +116,7 @@ export default {
       "hed":Hed01,
       "tabbar01":Tabbar01
    },methods:{
-      select(n){
+      select(n){//底部导航栏
          //创建一个循环，遍历所有按钮,然后匹配对应下标
          for(var i=0;i<this.torf.length;i++){
          if(n==i){
@@ -137,13 +125,11 @@ export default {
             this.torf[i].s=false;
          }
        }
-      },pitchOn(n){
+      },pitchOn(n){//导航栏点击事件
          for(var i=0;i<this.navbar.length;i++){
             if(n==i){
                this.navbara=i;
-              //console.log(i);
             }
-
          }
       }
 
@@ -164,7 +150,7 @@ export default {
 .index02{overflow:auto;}
 .dd{text-align:center;}
 .fumianban{
-   padding-top:50px;
+   padding-top:70px;
 }
 /* 轮播图样式 */
 .lbt_img{
@@ -175,8 +161,9 @@ export default {
 .biaoti_img{
    width:90px;
    height:90px;
+   border:1px solid #000;
 }
-.biaoti_img1{width:180px;height:90px;}
+.biaoti_img1{width:180px;height:90px;border:1px solid #000;}
 .biaoti2_img{
    width:120px;
    height:129px;
@@ -229,3 +216,4 @@ export default {
    color:slategray;
 }
 </style>
+
