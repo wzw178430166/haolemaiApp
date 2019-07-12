@@ -25,7 +25,7 @@
                         </span>
                     </div>
                 </label>
-                <!--图像验证码111222-->
+                <!--图像验证码11122233333-->
                 <label  for="iconcode">
                     <div class="login_input_wrap">
                         <input id="iconcode" class="register_input" type="tel" placeholder="请输入验证码">
