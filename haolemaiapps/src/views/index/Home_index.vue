@@ -29,11 +29,11 @@
                  <li class="dhl_li" v-for="(elem,i) of list" :key="i"  >
                      <span class="dhl_sp">仅剩两天</span>
                      <a href="javascript:;">
-                        <img :src=elem.my_img class="dhl_img">
+                        <img :src=elem.img_url class="dhl_img">
                      </a>
                      <p class="dhl_p">
-                        <span class="jiage">{{elem.title}}</span> <!--暂时写死11111，等传数据-->
-                        活力潮服律动夏日 <span>{{elem.title_price}}</span>
+                        <span class="jiage">{{elem.title1}}</span> <!--暂时写死11111，等传数据-->
+                        活力潮服律动夏日 <span>{{elem.title2}}</span>
                      </p>
                   </li>
               </ul>
