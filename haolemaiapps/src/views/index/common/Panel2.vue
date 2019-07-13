@@ -1,7 +1,8 @@
 <template>
    <div class="content">
+      <!-- 左侧选项栏 -->
       <div class="left" fixed>
-         <router-link style="text-decoration:none;" to="#" v-for="(item,i) of store" :key="i"> <span class="text" :class="active==i?'text_1':''" @click="goto(i)">{{item}}</span> </router-link>
+         <router-link style="text-decoration:none;" to="#" v-for="(item,i) of biaoti" :key="i"> <span class="text" :class="active==i?'text_1':''" @click="goto(i)">{{item}}</span> </router-link>
       </div>
       <!-- 右边内容 上面图片-->
       <div class="right">
@@ -15,14 +16,14 @@
             </ul>
          </div>
          <!-- 下部分内容 -->
-      <div class="content_none" :class="active==i?'content_block':''" v-for="(item,i) of store" :key="i" >
-         <p class="right_p">—{{store[i]}}—</p>
+      <div class="content_none" :class="active==i?'content_block':''" v-for="(item,i) of biaoti" :key="i" >
+         <p class="right_p">—{{1}}—</p>
          <!-- 右边内容 下面图片 -->
          <div class="right_tu">  
-            <router-link style="text-decoration:none" to="#" class="right_a" v-for="(item,i) of 33" :key="i">
+            <router-link  style="text-decoration:none" to="#" class="right_a" v-for="(item,i) of list" :key="i">
                <div>
-                  <img src="http://127.0.0.1:8095/img/appimg/biaoti/top2.png">
-                   <p>asfd</p>
+                  <img :src="item.img_url">
+                   <p>{{item.title}}</p>
                 </div>
             </router-link>
           </div>
@@ -32,24 +33,40 @@
    </div>
 </template>
 <script>
+//点击导航栏跳转到对应的ul，每个ul从数据库拿取数据，数据的存储，每个ul都有对应的id，li根据ul的id遍历对象
 //rem
 export default {
+   
+   created(){
+      //console.log(this.list);
+      this.goto(0)
+   },
    data(){
       return{
          active:"",
-         store:["运动生活","休闲服饰","时尚鞋品","快乐儿童","全球购","家居家纺","腕表首饰","家用电器"]
+         biaoti:["运动生活","休闲服饰","时尚鞋品","快乐儿童","全球购","家居家纺","腕表首饰","家用电器"],
+         list:[]
       }
    },methods:{
       //左侧导航栏跳转事件
       goto(e){
+     
          //遍历数组获取下标，下标与当前点击的位置一致时触发
-         for(var i=0;i<this.store.length;i++){
+         for(var i=0;i<this.biaoti.length;i++){
             if(e==i){
                this.active=e;
             }
-
-         }
-      }
+            if(e==i){           
+               //发送ajax请求，根于i获取对应的数据
+               var j=e;
+               var url="index/fenlei"
+               var uid={j:j+1}
+               this.axios.get(url,{params:uid}).then(result=>{
+                  this.list=result.data;
+               })
+             }
+           }
+          }
    }
 }
 </script>
