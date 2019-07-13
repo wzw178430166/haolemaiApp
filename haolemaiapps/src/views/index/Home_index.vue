@@ -41,8 +41,7 @@
            </div>
             <div v-for="(item,i) of 100" :key="i" class="dd">ssssssssssssssssssssssssss</div> 
          </mt-tab-container-item>
-         <!-- 面板2 w22222-->
-        
+         <!-- 面板2 w22222-->       
          <mt-tab-container-item id="fenlei">
              <Panel2></Panel2>
          </mt-tab-container-item>   
@@ -148,6 +147,7 @@ export default {
 *{margin:0;padding:0;}
 .index_content{
    display:flex;
+   width:100%;
    flex-wrap:wrap;
    justify-content:center;
    overflow:hidden;
