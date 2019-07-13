@@ -1,5 +1,5 @@
 <template>
-    <div :style="width:innerWidth+'px'">
+    <div>
              <!-- 轮播图-->
      <div id="content">
 <mt-swipe :auto="4000" @change="hangeder">
