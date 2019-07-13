@@ -1,5 +1,6 @@
 <template>
    <div class="content">
+      <!-- 左侧选项栏 -->
       <div class="left" fixed>
          <router-link style="text-decoration:none;" to="#" v-for="(item,i) of store" :key="i"> <span class="text" :class="active==i?'text_1':''" @click="goto(i)">{{item}}</span> </router-link>
       </div>
@@ -21,7 +22,7 @@
          <div class="right_tu">  
             <router-link style="text-decoration:none" to="#" class="right_a" v-for="(item,i) of 33" :key="i">
                <div>
-                  <img src="http://127.0.0.1:8095/img/appimg/biaoti/top2.png">
+                  <img src="http://127.0.0.1:8095/img/appimg/minImg/xie/yundong1.jpg">
                    <p>asfd</p>
                 </div>
             </router-link>
@@ -32,6 +33,7 @@
    </div>
 </template>
 <script>
+//点击导航栏跳转到对应的ul，每个ul从数据库拿取数据，数据的存储，每个ul都有对应的id，li根据ul的id遍历对象
 //rem
 export default {
    data(){
