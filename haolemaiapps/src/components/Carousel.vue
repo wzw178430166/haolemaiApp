@@ -2,7 +2,7 @@
     <div>
              <!-- 轮播图11233322-->
      <div id="content">
-<mt-swipe :auto="4000" @change="hangeder">
+<mt-swipe :auto="3000" @change="hangeder">
   <mt-swipe-item v-for="(elem,i) of list" :key=i>
       <img :src="elem.img" alt="" class="imgs">
   </mt-swipe-item>
