@@ -26,7 +26,7 @@
             <p class="refund"><span><img src="http://127.0.0.1:8095/img/details/remind.png" alt=""></span>此商品仅支持退货，不支持换货。</p>
           <div class="paddins"></div>
           <!-- 规格 -->
-          <div class="specification">
+          <div class="specification" :style="{'padding-bottom':sizenum.num}">
               <div class="colors">
                   <p class="colors_p">颜色</p>
                   <ul class="specification_img">
@@ -48,6 +48,11 @@
                               <li>w7</li>
                                <li>w8</li>
                                 <li>w9</li>
+                                 <li>w6</li>
+                              <li>w7</li>
+                               <li>w8</li>
+                                <li>w9</li>
+                                       <li>w7</li>
                         </ul>
                     </div>
                 </div>
@@ -63,17 +68,20 @@
                  
                  <div class="disc_item">
                      <div @click="active='tab1'">图文详情</div>
-                     <div @click="active='tab2'">评论晒单(2)</div>
+                     <div @click="active='tab2'">评论晒单(0)</div>
                  </div>
                  <div>
                  <!-- 父面板 -->
                   <mt-tab-container v-model="active">
                  <!-- 子面板 -->
                  <mt-tab-container-item id="tab1">
-                    <div style="width:100%;height:500px;background:red;">图文详情</div>
+                         <graphic></graphic>
                  </mt-tab-container-item>
                  <mt-tab-container-item id="tab2">
-                   <div style="width:100%;height:500px;background:red;">评论晒单(2)</div>
+                  <div style="width:100%;height:500px;">
+                         <evaluate></evaluate>
+                        </div>
+                
                      </mt-tab-container-item>
                  </mt-tab-container>
                  </div>
@@ -83,9 +91,9 @@
                   <!-- 底部导航栏 -->
                 <div class="tab_button">  <!--  http://127.0.0.1:8095/img/details/cart.png -->
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
-                   <div></div>
-                   <div></div>
-                   <div></div>
+                   <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
+                   <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
+                   <div><router-link to="#">加入购物车</router-link></div>
                 </div>
           <!-- <div style="width:100%;height:500px;background:red;"></div> -->
     </div>
@@ -94,10 +102,14 @@
 <script>
 import TitleBack from "../../components/TitleBack"  //引入子组件中的头部标题TitleBack
 import Carousel from "../../components/Carousel"  //引入子组件中的轮播图组件Carousel
-export default {
+import Graphic from "./Graphic"  //引入子组件 图文详情
+import Evaluate from "./Evaluate"  //引入子组件 热门评论
+export default {    //打包后直接可在服务器host里运行
     data(){
         return {
-          //  selected:"加入购物车", //底部导航
+          //  selected:"加入购物车", //底部导航   
+            //鞋子尺寸码数分别有哪些
+            sizenum:{num:'5rem'},
             active:'tab1', //图片评论
             listj:[
                   {img:'http://127.0.0.1:8095/img/lunbotu/1.jpg'},
@@ -166,18 +178,34 @@ export default {
     
     },
     components:{
-       "titleback":TitleBack ,
-       "carousel":Carousel
+       "titleback":TitleBack , //注册子组件
+       "carousel":Carousel,
+       "graphic":Graphic,   //图文详情
+       "evaluate":Evaluate  //热门评价
     },
-    mounted() { //加载后
+    mounted() { //加载后发ajxa请求     //this.$router.push('/main?lid=10');
         this.brinobj("reverse")
     },
+    created(){  //相当于window.onload
+    window.addEventListener("resize",()=>{
+      this.innerWidth=window.innerWidth;
+    })
+  },
 }
 </script>
 
 <style scoped>
     /*底部导航*/
-    .tab_button{width:100%;height: 3rem;boreder:1px solid #666;position: fixed;bottom: 0;}
+    .tab_button{width:100%;height: 3.5rem;position: fixed;bottom: 0;display:flex;}
+    .tab_button div:nth-child(1){width:25%;box-sizing: border-box;text-align: center;background-color: #FFFFFF;border-top:1px solid #e8e8e8;border-right: 1px solid #e8e8e8;}
+     .tab_button div:nth-child(1) a{font-size: .75rem;color:#7A7D81;text-decoration: none;padding-top: .63rem;}
+     .tab_button div:nth-child(1) a img{width:1.9rem;height: 1.7rem;margin-top: .3rem;}
+
+     .tab_button div:nth-child(2){width:25%;box-sizing: border-box;background-color: #FFFFFF;text-align: center;border-top: 1px solid #e8e8e8;}
+      .tab_button div:nth-child(2) a{font-size: .75rem;color:#7A7D81;text-decoration: none;padding-top: .63rem;}
+      .tab_button div:nth-child(2) a img{width:1.9rem;height: 1.7rem;margin-top: .3rem;}
+      .tab_button div:nth-child(3){width:50%;background-color: #D70057;box-sizing: border-box;text-align: center;line-height: 3.2rem;}
+      .tab_button div:nth-child(3) a{text-decoration: none;color:white;font-weight: bold;}
     /*商品信息*/
     /*评论*/
     .disc_item{height: 3rem;width:100%;}
@@ -188,7 +216,7 @@ export default {
      .mores{width: 100%;height: 2.25rem;line-height: 2.25rem;padding-left: 1rem;font-size: .75rem;}
     /* 尺寸 */
     .measure_item ul{width:100%;height: 3rem;list-style: none;margin-top: .75rem;padding-bottom: 1.5rem;}
-    .measure_item ul li{width:3.5rem;height: 2.5rem;line-height:2.5rem;list-style: none;float: left;background-color: #F4F4F4;text-align: center;margin-right: .5rem;border-radius: 10%;}
+    .measure_item ul li{width:3.5rem;height: 2.5rem;line-height:2.5rem;list-style: none;float: left;background-color: #F4F4F4;text-align: center;margin-right: .5rem;border-radius: 10%;margin-top: 1rem;}
     .measure_item ul .mead_active{background: #D70057!important;}
     .measure{width:100%;clear: both;}
     .measure .me-p{padding-top: 2rem;}
