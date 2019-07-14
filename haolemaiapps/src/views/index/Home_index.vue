@@ -101,9 +101,9 @@ export default {
           //导航栏发送ajax请求
            var url="index/brand"
            this.axios.get(url).then(result=>{           
-             console.log(result);
+             //console.log(result);
              this.list=result.data;
-             console.log(this.list);
+             //console.log(this.list);
           })
    },
    data(){
@@ -112,7 +112,8 @@ export default {
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
          navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],   
-         list:[],      
+         list:[],  
+         fenlei:[],    
          navbara:0
       };
    },
@@ -129,6 +130,8 @@ export default {
          }else{
             this.torf[i].s=false;
          }
+        }
+   
        }
       },pitchOn(n){//导航栏点击事件
          for(var i=0;i<this.navbar.length;i++){
@@ -139,7 +142,7 @@ export default {
       }
 
    }
-}
+
 
 </script>
 <style>
