@@ -10,6 +10,11 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 //3:将mint-ui注册vue
 Vue.use(MintUI);
+
+// import { Swipe, SwipeItem } from 'mint-ui';
+// Vue.component(Swipe.name, Swipe);
+// Vue.component(SwipeItem.name, SwipeItem);
+
 //4:引入图标字体样式文件
 import "./font/iconfont.css"
 //5.引入axios.js文件

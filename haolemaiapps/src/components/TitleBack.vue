@@ -1,23 +1,26 @@
 <template>
        <div>
     <div class="title_back">
-       <router-link  to="/main/stat"><img src="http://127.0.0.1:8095/img/details/back.png" /></router-link>
-         <span>商品详情</span>
-         <router-link  to="/main/stat"><img src="http://127.0.0.1:8095/img/details/goindex.png"/></router-link>
+       <router-link  to="/main/stat"><img :src="img_url" /></router-link>
+         <span>{{msg}}</span>
+         <router-link  to="/main/stat"><img :src="img_url2"/></router-link>
     </div>
         </div>
 </template>
 
 <script>
-export default {
-    data(){
+export default {  
+    data(){         
         return {
-         list:["今日特卖","服装","鞋靴","儿童","包配"],    //复选框111
-         active:"tab1"
-        
-        }
-        
+
+        }         
     },  
+    props:{
+        msg:{default:""},
+        img_url:{default:"http://127.0.0.1:8095/img/details/back.png"},
+        img_url2:{default:"http://127.0.0.1:8095/img/details/goindex.png"},
+        add:{type:Function}
+    },
     methods:{
           setActive(e){
               var i=parseInt(e.target.dataset.idx)+1;
