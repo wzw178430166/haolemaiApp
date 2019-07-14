@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 //自定义组件
 import Login from "./views/personal/Login.vue"       //登录页
+import Register from "./views/personal/Register.vue"  //注册页
 import Personal from "./views/personal/Personal.vue"       //个人中心
 import HomeIndex from "./views/index/Home_index.vue"   //首页
 import Product from "./views/product/Product.vue"  //引入商品列表
@@ -24,6 +25,7 @@ export default new Router({
     {path:"/search",component:search},
     {path:'/Personal',component:Personal},   //个人中心
     {path:'/Login',component:Login},   // 项目登录 
+    {path:'/Register',component:Register},
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
     {path:'/Details',component:Details},  //商品详情页
