@@ -19,7 +19,7 @@ const mydetails = new Vuex.Store({
         }
         //购物车数量增加指定值  5
     },
-    getters:{  //获取全局共享的数据    
+    getters:{  //获取全局共享的数据  000000  
         getCartCount:function(details){
           return details.cartCount;
         }
