@@ -1,5 +1,5 @@
 // 将引入axios库 单独保存一个文件中  减少main.js代码量
-//1.引入vue实例
+//1.引入vue实例111111
 import Vue from "vue"
 //2.引入axios库
 import axios from "axios"

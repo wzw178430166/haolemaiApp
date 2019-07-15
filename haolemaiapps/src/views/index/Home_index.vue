@@ -5,10 +5,10 @@
       <hed fixed></hed>
       <!-- 面板 -->
       <mt-tab-container v-model="active" class="fumianban">
-         <mt-tab-container-item id="shouye" >
+         <mt-tab-container-item id="shouye" class="mianban">
             <!-- 面板1 -->
             <!-- 标题栏1 -->
-            <div>
+            <div> 
                <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
                <div>
                   <a href="#"><img src="#" class="biaoti_img1"></a>
@@ -41,14 +41,15 @@
            </div>
             <div v-for="(item,i) of 100" :key="i" class="dd">ssssssssssssssssssssssssss</div> 
          </mt-tab-container-item>
-         <!-- 面板2 w22222-->
-        
+         <!-- 面板2 w22222-->       
          <mt-tab-container-item id="fenlei">
              <Panel2></Panel2>
          </mt-tab-container-item>   
 
-
-         <mt-tab-container-item id="temai">面板3</mt-tab-container-item>   
+         <!-- 面板3 -->
+         <mt-tab-container-item id="temai">
+            <Panel3></Panel3>
+         </mt-tab-container-item>   
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
          </mt-tab-container>   
@@ -97,14 +98,15 @@
 import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
 import Panel2 from "./common/Panel2"
+import Panel3 from "./common/Panel3"
 export default {
    created(){
           //导航栏发送ajax请求
            var url="index/brand"
            this.axios.get(url).then(result=>{           
-             console.log(result);
+             //console.log(result);
              this.list=result.data;
-             console.log(this.list);
+             //console.log(this.list);
           })
    },
    data(){
@@ -113,14 +115,16 @@ export default {
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
          navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],   
-         list:[],      
+         list:[],  
+         fenlei:[],    
          navbara:0
       };
    },
    components:{
       "hed":Hed01,
       "tabbar01":Tabbar01,
-      "Panel2":Panel2
+      "Panel2":Panel2,
+      "Panel3":Panel3,
    },methods:{
       select(n){//底部导航栏
          //创建一个循环，遍历所有按钮,然后匹配对应下标
@@ -130,6 +134,8 @@ export default {
          }else{
             this.torf[i].s=false;
          }
+        }
+   
        }
       },pitchOn(n){//导航栏点击事件
          for(var i=0;i<this.navbar.length;i++){
@@ -140,7 +146,7 @@ export default {
       }
 
    }
-}
+
 
 </script>
 <style>
@@ -148,15 +154,22 @@ export default {
 *{margin:0;padding:0;}
 .index_content{
    display:flex;
+   width:100%;
    flex-wrap:wrap;
    justify-content:center;
    overflow:hidden;
+   border:1px solid #000;
+   box-sizing:border-box;
 }
 /* 第二层父元素 */
 .index02{overflow:auto;}
 .dd{text-align:center;}
 .fumianban{
    padding-top:70px;
+}
+/* 面板样式 */
+.mianban{
+   text-align:center;
 }
 /* 轮播图样式 */
 .lbt_img{
