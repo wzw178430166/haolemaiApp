@@ -25,7 +25,7 @@ export default new Router({
     {path:"/search",component:search},
     {path:'/Personal',component:Personal},   //个人中心
     {path:'/Login',component:Login},   // 项目登录 
-    {path:'/Register',component:Register},
+    {path:'/Register',component:Register},//注册
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
     {path:'/Details',component:Details},  //商品详情页

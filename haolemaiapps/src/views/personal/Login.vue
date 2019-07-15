@@ -78,9 +78,11 @@
                 <div class="otherabout">
                     <div class="fastlogin">
                         <span>
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">快速注册</font>
-                            </font>
+                            <a href="http://127.0.0.1:8080/#/Register">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">快速注册</font>
+                                </font>
+                            </a>
                         </span>
                     </div>
                     <div class="forgetpassword">
@@ -379,6 +381,9 @@ export default {
         font-size: .9rem;
         background: url(http://0.touch.js.al.okbuycdn.com/resources/complete/images/product/prothumb.png) -11.9rem 0 no-repeat;
         background-size: 12.5rem 12.5rem;
+    }
+    .loginnowbox .otherabout .fastlogin span a{
+        color: #666;
     }
     .loginnowbox .otherabout .forgetpassword span {
         display: block;
