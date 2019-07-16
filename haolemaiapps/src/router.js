@@ -29,7 +29,7 @@ export default new Router({
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
     {path:'/Details',component:Details},  //商品详情页
-    {path:'/cart',component:Cart}   //添加购物车
+    {path:'/cart',component:Cart}   //添加购物车   //this.$store
   ]
 })
 

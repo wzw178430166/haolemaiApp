@@ -22,7 +22,11 @@ import axios from "./axios"
 
 //6.引入vuex  注册vuex组件  创建store   将store保存vue实例中
 import Vuex from "vuex"
+
+
+//import mydetails from "./store/details"  //引入详情列表的仓库数据
 Vue.use(Vuex)
+//购物车的共享数据
 var store = new Vuex.Store({
   state:{  //保存全局共享数据  
       cartCount:0
@@ -44,6 +48,13 @@ var store = new Vuex.Store({
       getCartCount:function(state){
         return state.cartCount;
       }
+  },
+  //以异步的方式操作数据
+  actions:{  //发请求  //  还要靠mutations:{ //修改全局共享数据函数
+     
+  },
+  modules:{  //子模块 例如用户用的，购物车用的
+
   }
 })
 
@@ -53,5 +64,6 @@ Vue.config.productionTip = false
 new Vue({
   router,     //路由文件
   render: h => h(App),  //渲染  创建一个根组件
-  store     //将vuex组件添加到Vue实例中
+  store,     //将vuex组件添加到Vue实例中
+  //mydetails  //商品详情的共享数据
 }).$mount('#app')

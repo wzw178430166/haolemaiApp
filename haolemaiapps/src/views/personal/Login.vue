@@ -2,9 +2,9 @@
     <div class="login">
         <!--登录页头部-->
         <header>
-            <span><a href="javascript:;"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
+            <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
             <span>登录</span>
-            <span><a href="javascript:;"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></a></span>
+            <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></a></span>
         </header>
         <!--登录页主体-->
         <main>
