@@ -1,9 +1,9 @@
 <template>
        <div>
     <div class="title_back">
-       <router-link  to="/main/stat"><img :src="img_url" /></router-link>
+       <p @click="$router.back(-1)"><img :src="img_url" /></p>
          <span>{{msg}}</span>
-         <router-link  to="/main/stat"><img :src="img_url2"/></router-link>
+         <router-link  to="/"><img :src="img_url2"/></router-link>
     </div>
         </div>
 </template>
@@ -26,7 +26,7 @@ export default {
               var i=parseInt(e.target.dataset.idx)+1;
               console.log(i);
               this.active="tab"+i;
-          }
+          },
      }
 }
 </script>
