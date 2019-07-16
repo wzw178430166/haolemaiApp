@@ -1,4 +1,10 @@
 <template>
+<<<<<<< HEAD
+    <div>
+       <titleBack msg="商品列表"></titleBack>
+       <router-link :to="`/Details/details?lid=`+lid">加入购物车</router-link>
+    </div>
+=======
 
     <div class="content">
        <titleBack msg="商品列表" style="position:fixed;width:100%;top:0;z-index:999;"></titleBack>
@@ -116,6 +122,7 @@
         </div>
      </div> 
    
+>>>>>>> 017697afec3c7a03e0d32b3a3ef5f008fc4e7492
 </template>
 
 <script>
@@ -131,6 +138,9 @@ import TitleBack from "../../components/TitleBack"  //引入子组件中的头�
 export default {
     data(){
         return {
+<<<<<<< HEAD
+            lid:1
+=======
             alter:"",//用来存储改变的值
             list1:["默认","销量","价格","折扣","筛选"],
             list2:["分类","品牌","尺寸"],
@@ -182,6 +192,7 @@ export default {
                var t=this.comm_list.concat(result.data.data);
                 this.comm_list=t;
             })
+>>>>>>> 017697afec3c7a03e0d32b3a3ef5f008fc4e7492
         }
     },
     created(){
