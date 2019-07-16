@@ -102,7 +102,7 @@
         <!-- 主要内容 -->
         <div class="listcontent">
             <!-- 商品列表 -->
-            <div class="listbox1" v-for="(item,i) of comm_list" :key="i">
+            <router-link to="Details/details" class="listbox1" v-for="(item,i) of comm_list" :key="i">
                 <div class="listbox2">
                     <img :src="item.img_url">
                     <p>{{item.title1}}</p>
@@ -110,7 +110,7 @@
                     <div><span class="jiage">￥{{item.price1}}</span><span>{{item.price2}}折</span></div>
                     <p class="tj">特价</p>
                 </div>
-            </div>
+            </router-link>
            <mt-button type="default" size="large" @click="commlist">加载更多</mt-button>
          
         </div>

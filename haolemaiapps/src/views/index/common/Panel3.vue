@@ -6,6 +6,7 @@
       </ul>
       <!-- 主要内容 -->
       <ul class="ct_ul" :class="i==action?'ul_block':''" v-for="(item,i) of 5" :key="i">
+         <router-link rel="stylesheet" to="Product" style="text-decoration:none;">
          <li class="ct_li" v-for="(elem,i) of list.data" :key="i">
             <span class="ct_sp">仅剩1天</span>
             <img :src="elem.img_url" class="ct_img">
@@ -14,6 +15,7 @@
                    {{elem.title2}}
             </p>
          </li>
+         </router-link>
       </ul>
    </div>
 </template>
@@ -52,7 +54,7 @@ export default {
 *{margin:0;padding:0;}
 .dhl_ul{
    position:fixed;
-   top:3.9rem;
+   top:3.8rem;
    width:100%;
    display:flex;
    flex-direction:row;
@@ -66,12 +68,15 @@ export default {
    text-align:center;
    line-height:2rem;
    margin:10px;
+   font-size:0.5rem;
+   
 }
 .dhl_li2{
    border-bottom:3px solid blueviolet;
    color:blueviolet;
-   font-size:18px;
+   /* font-size:0.8rem; */
    transition:all .3s;
+   transform:scale(1.3)
 }
 /* 主要内容 */
 .ct_ul{

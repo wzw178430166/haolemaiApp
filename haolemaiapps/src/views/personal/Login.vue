@@ -2,9 +2,13 @@
     <div class="login">
         <!--登录页头部-->
         <header>
-            <span><a href="javascript:;"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
+            <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
             <span>登录</span>
+<<<<<<< HEAD
+            <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></a></span>
+=======
             <span><router-link to="/"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></router-link></span>
+>>>>>>> 3085bfc6b66be0d49aaab1dbcb46656597bce222
         </header>
         <!--登录页主体-->
         <main>
@@ -78,9 +82,11 @@
                 <div class="otherabout">
                     <div class="fastlogin">
                         <span>
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">快速注册</font>
-                            </font>
+                            <a href="http://127.0.0.1:8080/#/Register">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">快速注册</font>
+                                </font>
+                            </a>
                         </span>
                     </div>
                     <div class="forgetpassword">
@@ -379,6 +385,9 @@ export default {
         font-size: .9rem;
         background: url(http://0.touch.js.al.okbuycdn.com/resources/complete/images/product/prothumb.png) -11.9rem 0 no-repeat;
         background-size: 12.5rem 12.5rem;
+    }
+    .loginnowbox .otherabout .fastlogin span a{
+        color: #666;
     }
     .loginnowbox .otherabout .forgetpassword span {
         display: block;
