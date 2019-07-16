@@ -4,7 +4,7 @@
         <header>
             <span><a href="javascript:;"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
             <span>登录</span>
-            <span><a href="javascript:;"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></a></span>
+            <span><router-link to="/"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></router-link></span>
         </header>
         <!--登录页主体-->
         <main>
