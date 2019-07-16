@@ -216,6 +216,7 @@ export default {
 
 /* 最外层父元素 */
 .content{
+  width:100%;
   box-sizing:border-box;
   padding-top:151px;
 }
