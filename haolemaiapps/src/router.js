@@ -1,4 +1,4 @@
-//router.js 引入路由1111111111111
+//router.js 引入路由
 import Vue from 'vue'
 import Router from 'vue-router'
 //自定义组件
@@ -28,8 +28,8 @@ export default new Router({
     {path:'/Register',component:Register},//注册
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
-    {path:'/Details',component:Details},  //商品详情页
-    {path:'/cart',component:Cart}   //添加购物车   //this.$store
+    {path:'/Details/details',component:Details,props:true},  //商品详情页 111111
+    {path:'/cart',component:Cart}   //添加购物车   //this.$store 共享数据
   ]
 })
 

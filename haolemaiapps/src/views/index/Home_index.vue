@@ -7,39 +7,46 @@
       <mt-tab-container v-model="active" class="fumianban">
          <mt-tab-container-item id="shouye" class="mianban">
             <!-- 面板1 -->
+            <!-- 广告 -->
+            <img style="width:100%;" src="http://127.0.0.1:8095/img/appimg/biaoti/guanggao.png">
             <!-- 标题栏1 -->
             <div> 
-               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
+              <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
                <div>
-                  <a href="#"><img src="#" class="biaoti_img1"></a>
-                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="#" class="biaoti_img"></a>
+                  <a href="#"><img src="http://127.0.0.1:8095/img/appimg/biaoti/01.png" class="biaoti_img1"></a>
+                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top0.png" class="biaoti_img"></a>
                </div>
-               <span><img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"></span>
+               <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
             </div>
             <!-- 标题栏2 -->
-            <div><img src="#" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
+            <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/top6.png" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
             <!-- 导航栏 -->    
-            <div class="d_navbar">
-               <a href="javascript:;" v-for="(item,i) of navbar" :key="i" class="navbars" :class="i==navbara?'navbara':''"  @click="pitchOn(i)">{{navbar[i]}}</a>
-            </div> 
-           <div>
-              <!-- 根据导航栏的i和ul的j匹配 -->
-              <!-- 显示一个ul，其余所有ul都是display：none。给ul设置一个标记，一但匹配到下标就显示 -->
-              <ul class="dhl_ul" v-for="(elem,j) of navbar" :key="j" :class="j==navbara?'xs':''">
-                 <li class="dhl_li" v-for="(elem,i) of list" :key="i"  >
-                     <span class="dhl_sp">仅剩两天</span>
-                     <a href="javascript:;">
-                        <img :src=elem.img_url class="dhl_img">
-                     </a>
-                     <p class="dhl_p">
-                        <span class="jiage">{{elem.title1}}</span> <!--暂时写死11111，等传数据-->
-                        活力潮服律动夏日 <span>{{elem.title2}}</span>
-                     </p>
-                  </li>
-              </ul>
-       
-           </div>
-            <div v-for="(item,i) of 100" :key="i" class="dd">ssssssssssssssssssssssssss</div> 
+            <ul class="dhl_ul">
+               <li v-for="(item,i) of navbar" :key="i" class="dhl_li" :class="action==i?'dhl_li1':''" @click="goto(i)">{{item}}</li>
+            </ul>
+            <!-- 类别循环 -->
+            <ul class="shangpin_ul" :style="action==j?'display:block':''" v-for="(item,j) of navbar" :key="j">
+              <h3>{{action}}</h3>
+               <!-- 商品循环 -->
+               <li class="shangpin_li" v-for="(item,i) of list" :key="i">
+                  <router-link to="#" class="shangpin_a">
+                     <div class="shangpin">
+                        <img :src="item.img_url">
+                        <p>
+                           <span>特价999</span>阿斯蒂芬
+                        </p>
+                     </div>
+                  </router-link>
+               </li>
+            </ul>
+            <div style="width:100%;height:30rem;"></div>
+
+
+
+
+
+
+
          </mt-tab-container-item>
          <!-- 面板2 w22222-->       
          <mt-tab-container-item id="fenlei">
@@ -102,23 +109,18 @@ import Panel2 from "./common/Panel2"
 import Panel3 from "./common/Panel3"
 export default {
    created(){
-          //导航栏发送ajax请求
-           var url="index/brand"
-           this.axios.get(url).then(result=>{           
-             //console.log(result);
-             this.list=result.data;
-             //console.log(this.list);
-          })
+       this.goto(0); 
    },
    data(){
       return{
          action:true,
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
-         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],   
-         list:[],  
+         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],    
          fenlei:[],    
-         navbara:0
+         navbara:0,
+         action:"",
+         list:[],//用来保存数据的数组   
       };
    },
    components:{
@@ -136,21 +138,74 @@ export default {
             this.torf[i].s=false;
          }
         }
-   
-       }
-      },pitchOn(n){//导航栏点击事件
+       },
+       //商品导航栏函数
+       goto(n){  
          for(var i=0;i<this.navbar.length;i++){
-            if(n==i){
-               this.navbara=i;
+            if(i==n){
+               var j=n;
+               var Obj={j:j+1};
+               var url="index/brand"
+               this.action=n;
+                console.log(this.action);
+               this.axios.get(url,{params:Obj}).then(result=>{
+                  this.list=result.data;
+                  console.log(this.list);
+               })
             }
          }
-      }
-
+  
+       }
+      },
    }
 
 
 </script>
 <style>
+/* 导航栏样式 */
+.dhl_ul{
+   width:100%;
+   height:3rem;
+   list-style:none;
+}
+.dhl_li{
+   width:16.6%;
+   height:100%;
+   float:left;
+   line-height:3rem;
+   color:crimson;
+   font-size:1.1rem;
+   font-weight:bold;
+   box-sizing:border-box;
+}
+.dhl_li1{
+   border-bottom:2px solid crimson;
+}
+/* 商品的ul */
+.shangpin_ul{
+   width:100%;
+   height:auto;
+   display:none;
+}
+.shangpin_li{
+   width:100%;
+   height:auto;
+   box-sizing:border-box;
+}
+
+.shangpin{
+   text-align:left;
+   box-sizing:border-box;
+}
+.shangpin>img{
+   width:100%;
+   height:auto;
+}
+
+
+
+
+
 /* 最外层父元素 */
 *{margin:0;padding:0;}
 .index_content{
@@ -159,18 +214,19 @@ export default {
    flex-wrap:wrap;
    justify-content:center;
    overflow:hidden;
-   border:1px solid #000;
    box-sizing:border-box;
 }
 /* 第二层父元素 */
 .index02{overflow:auto;}
 .dd{text-align:center;}
 .fumianban{
-   padding-top:70px;
+   padding-top:5.1rem;
 }
 /* 面板样式 */
 .mianban{
    text-align:center;
+   overflow:auto;
+   box-sizing:border-box;
 }
 /* 轮播图样式 */
 .lbt_img{
@@ -207,33 +263,11 @@ export default {
    color:blueviolet;border-bottom:3px solid blueviolet;
 }
 /* 导航栏商品样式 */
-.dhl_ul{
-   position:relative;
-   list-style:none;
-   display:none;
-}
-.xs{display:block;}
-.dhl_sp{
-   display:block;
-   width:80px;
-   height:30px;
-   text-align:center;
-   font-size:8px;
-   line-height:30px;
-   color:white;
-   background-color:rgba(0,0,0,0.5);
-   position:absolute;
-   right:0;
-}
-.dhl_img{
-   width:100%;
-   height:175px;
-}
-.jiage{color:red;font-size:17px;margin-right:15px;}
-.dhl_p{
-   margin:8px 0 0 8px;
-   font-size:12px; 
-   color:slategray;
-}
+
+
+
+
+
+
 </style>
 
