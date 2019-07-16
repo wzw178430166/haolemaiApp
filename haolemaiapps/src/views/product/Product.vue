@@ -1,132 +1,11 @@
 <template>
-<<<<<<< HEAD
     <div>
        <titleBack msg="商品列表"></titleBack>
-       <router-link :to="`/Details/details?lid=`+lid">加入购物车</router-link>
-    </div>
-=======
-
-    <div class="content">
-       <titleBack msg="商品列表" style="position:fixed;width:100%;top:0;z-index:999;"></titleBack>
-       <!-- 导航列表 -->
-       <div class="liebiao">
-           <!-- 第一个列表 -->
-           <div class="list" >
-               <span :class="alter==i?'list1_1':''" v-for="(item,i) of list1" :key="i" class="list1" @click="goto1(i)">{{item}}</span>
-           </div>
-           <!-- 第二个列表 -->
-           <div class="list" >
-              <span v-for="(item,i) of list2" :key="i" class="list2" :class="alter1==i?'list2_1':''" @click="goto2(i)">{{item}} <i></i> </span>
-           </div>
-           <!-- 隐藏小boss（div) -->
-            <div class="minBoss" >
-                <ul :class="alter1==j?'min_ul2':'min_ul'" class="min_ul"  v-for="(elem,j) of list2" :key="j" >
-                    <li class="min_li" v-for="(item,i) of 40" :key="i">测试啦啦啦啦啦阿拉蕾</li>
-                    <button class="anniu">重置</button>
-                    <button class="anniu anniu2">确认</button>
-                </ul>
-            </div>
-       </div>
-       <!-- 隐藏的boss -->
-       <div class="hideboss" :class="alter==4?'hideboss1':''">
-           <!-- 最大的爹 -->
-         <div class="fatherMax">
-            <!-- 包裹所有内容的爹 -->
-             <div class="father">
-                <!-- 六个模块的爹 -->
-                <!-- 分类 -->
-                <div>
-                    <div class="biaoti">
-                        <span>分类</span>
-                    </div>
-                    <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 9" :key="i"></a>
-                    </div>
-                </div>
-                <!-- 品牌 -->
-                <div>
-                    <div class="biaoti">
-                        <span>品牌</span>
-                    </div>
-                    <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 1" :key="i"></a>
-                    </div>
-                </div>
-                <!-- 性别 -->
-                <div>
-                   <div class="biaoti">
-                        <span>性别</span>
-                    </div>
-                    <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 2" :key="i"></a>
-                    </div>
-                </div>
-                <!-- 价格区间 -->
-                <div>
-                    <div class="biaoti">
-                            <span>价格区间（元）</span>
-                    </div>
-                    <div>
-                        <div class="shaixuan">
-                            <!-- 两个input -->
-                            <input type="text" placeholder="最低价">
-                            <span>—</span>
-                            <input type="text" placeholder="最高价">
-                        </div>
-                        <div class="fatherMin">
-                            <a href="#" class="child">0-50</a>
-                            <a href="#" class="child">51-100</a>
-                            <a href="#" class="child">101-200</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- 尺码 -->
-                <div>
-                    <div class="biaoti">
-                        <span>尺码</span>
-                    </div>
-                    <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 15" :key="i"></a>
-                    </div>
-                </div>
-                <!-- 是否存货 -->
-                <div class="cunhuo">                
-                    <input type="checkbox" id="bt" class="btn">
-                    <label for="bt" class="label"></label>
-                    <span>仅看有货商品</span>
-                </div>
-            </div>
-            <div>
-                <!-- 两个按钮 -->
-                <button class="anniu">重置</button>
-                <button class="anniu anniu2">确认</button>
-            </div>
-        </div>
-       </div>
-          <!-- 灰色斗篷 -->
-        <div class="back" v-if="abc==1" @click="clear"></div>
-        <!-- 主要内容 -->
-        <div class="listcontent">
-            <!-- 商品列表 -->
-            <div class="listbox1" v-for="(item,i) of comm_list" :key="i">
-                <div class="listbox2">
-                    <img :src="item.img_url">
-                    <p>{{item.title1}}</p>
-                    <span>{{item.title2}}</span>
-                    <div><span class="jiage">￥{{item.price1}}</span><span>{{item.price2}}折</span></div>
-                    <p class="tj">特价</p>
-                </div>
-            </div>
-           <mt-button type="default" size="large" @click="commlist">加载更多</mt-button>
-         
-        </div>
-     </div> 
-   
->>>>>>> 017697afec3c7a03e0d32b3a3ef5f008fc4e7492
+</div>
 </template>
 
 <script>
-//两个列表都需要一个固定定位
+//两个列表都需要一个固定定位  <router-link :to="`/Details/details?lid=`+lid">加入购物车</router-link>
 //1.第一个列表：五个选项，默认，销量，价格，折扣，筛选，先写出静态，前四个是点击功能显示，筛选是点击右边显示一个div
 //1.1：右边显示的div列表，6块功能，分类>(6)、品牌>(1)、性别>(2)、价格区间>(3)、尺寸>(6)、仅看有货商品(复选框)，下边两个按钮；重置和确定
 //2.第二个列表：三个选项，分类，品牌，尺寸，每次点击都显示下面div
@@ -138,61 +17,7 @@ import TitleBack from "../../components/TitleBack"  //引入子组件中的头�
 export default {
     data(){
         return {
-<<<<<<< HEAD
-            lid:1
-=======
-            alter:"",//用来存储改变的值
-            list1:["默认","销量","价格","折扣","筛选"],
-            list2:["分类","品牌","尺寸"],
-            abc:"0",//用来存储背景的值
-            comm_list:[],//用来存储商品列表
-            pno:1,
-            ps:4,
-            alter1:"-1"
-        }
-    },methods:{
-        goto1(n){
-            for(var i=0;i<this.list1.length;i++){
-                if(n==i){
-                    this.alter=i;
-                    console.log(n);//获取每个点击对象的下标，先放置
-                }
-                if(n==4){
-                    console.log("选中");
-                    this.alter=n;
-                    this.abc=1;
-                    return;
-                }
-            }
-        },
-        // 背景函数
-        clear(){
-            this.alter="";
-            this.alter1="min_ul";
-            this.abc=0;
-        },
-        //第二个列表函数
-        goto2(n){
-            for(var i=0;i<this.list2.length;i++){
-                if(n==i){
-                   this.alter1=n;
-                   this.abc=1;
-                    return;
-                }
-            }
-           
-        },
-        //商品列表函数
-        commlist(){
-            var url = "index/commlist"
-            this.pno++;
-            var obj={pno:this.pno,pageSize:this.ps}
-            this.axios.get(url,{params:obj}).then(result=>{
-                //为了数据不被覆盖，传输数据的时候要用方法concat
-               var t=this.comm_list.concat(result.data.data);
-                this.comm_list=t;
-            })
->>>>>>> 017697afec3c7a03e0d32b3a3ef5f008fc4e7492
+            lid:1,
         }
     },
     created(){
