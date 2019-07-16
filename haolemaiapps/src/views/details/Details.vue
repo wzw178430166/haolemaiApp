@@ -1,11 +1,10 @@
 <template>
-    <div class="main" :style="{width:innerWidth+'px'}" @touchmove="moves">
+    <div class="main" @touchmove="moves"><!-- :style="{width:innerWidth+'px'}"-->
         <titleback msg="商品详情" class="titleback"></titleback>
-        <carousel :list=listj></carousel>
+        <carousel :list=pics></carousel>
         <div class="title_meg">
             <div class="title_msleft">
-              
-            <!-- <span class="title_mes">￥{{listss.products.price}}</span><s class="title_sld">${{listss.products.original}}</s>  -->
+            <span class="title_mes">￥{{products.price}}</span><s class="title_sld">${{products.original}}</s> 
             </div>
             <div class="title_msright">
                 <span>距结束</span><span class="jieshuee" id="reverse" data-time="2019/8/14 23:59">
@@ -18,13 +17,13 @@
         </div>
 
           <div class="xiangs">
-              <p>女式&nbsp;卡骆驰女士都会街头帆布便鞋</p>
-              <p><span>限时特卖</span><span>【特价且部分下单再享8折】CROCS清仓</span></p>
+              <p>{{products.lname}}</p> 
+              <p><span>{{products.title}}</span><span>{{products.subtitle}}</span></p>
           </div>
           <div class="diyie">
-              <p><span>满折</span>【下单8折】crocs度假开启 >></p>
+              <p><span>{{products.title_sec}}</span>{{products.subtitle_sec}}</p>
           </div>
-            <p class="refund"><span><img src="http://127.0.0.1:8095/img/details/remind.png" alt=""></span>此商品仅支持退货，不支持换货。</p>
+            <p class="refund"><span><img src="http://127.0.0.1:8095/img/details/remind.png" alt=""></span>{{products.promise}}</p>
           <div class="paddins"></div>
           <!-- 规格 -->
           <div class="specification" :style="{'padding-bottom':sizenum.num}">
@@ -44,16 +43,8 @@
                     <p class="me-p"><span>尺寸</span><router-link to="#" class="measur_rout">尺码对照表</router-link> </p>
                     <div class="measure_item">
                         <ul>
-                            <li class="mead_active">w5</li>
-                             <li>w6</li>
-                              <li>w7</li>
-                               <li>w8</li>
-                                <li>w9</li>
-                                 <li>w6</li>
-                              <li>w7</li>
-                               <li>w8</li>
-                                <li>w9</li>
-                                       <li>w7</li>
+                            <li v-for="(elem,i) in size[0]" :key='i'>{{elem}}</li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -99,7 +90,7 @@
     </div>
 </template>
 
-<script>
+<script>  ////<router-link :to="`/Details/details?lid=`+lid">加入购物车</router-link>
 import TitleBack from "../../components/TitleBack"  //引入子组件中的头部标题TitleBack
 import Carousel from "../../components/Carousel"  //引入子组件中的轮播图组件Carousel
 import Graphic from "./Graphic"  //引入子组件 图文详情
@@ -109,16 +100,21 @@ export default {    //打包后直接可在服务器host里运行
         return {
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
-            sizenum:{num:'5rem'},
+            sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
                   {img:'http://127.0.0.1:8095/img/lunbotu/1.jpg'},
                   {img:'http://127.0.0.1:8095/img/lunbotu/2.jpg'},
-                  {img:'http://127.0.0.1:8095/img/lunbotu/3.jpg'}
+                  {img:'http://127.0.0.1:8095/img/lunbotu/3.jpg'},
+                   {img:'http://127.0.0.1:8095/img/lunbotu/4.jpg'},
+                    {img:'http://127.0.0.1:8095/img/lunbotu/5.jpg'}
             ],
-            innerWidth:window.innerWidth,
-            listss:{}
-        }
+           // innerWidth:window.innerWidth,
+            products:{},  //这是商品详情数据
+            pics:[],    //商品轮播图片
+            specs:[],  //商品规格
+            size:[] ,  //鞋子的码数
+          }
     },
     methods: {
          moves(){  //手指滑动屏幕触发
@@ -127,7 +123,7 @@ export default {    //打包后直接可在服务器host里运行
          
            //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
 
-            getCount(type){ //type是请求中的prams传过去的值。
+          /*  getCount(type){ //type是请求中的prams传过去的值。
                  return new Promise( //中没有return，只能靠开门解决之前的open
                      function(resolve,reject){
                       
@@ -143,7 +139,7 @@ export default {    //打包后直接可在服务器host里运行
                  });
                      }
                  )
-             },
+             },*/
         			//限时购
 			 brinobj(id){
   var timer = null;//这里设置time为null，用于下面来清除计时器
@@ -198,25 +194,31 @@ export default {    //打包后直接可在服务器host里运行
     
     
     },
+
     components:{
        "titleback":TitleBack , //注册子组件
-       "carousel":Carousel,
+       "carousel":Carousel,   //轮播的子组件
        "graphic":Graphic,   //图文详情
        "evaluate":Evaluate  //热门评价
     },
     mounted() { //加载后发ajxa请求     //this.$router.push('/main?lid=10');
-       // this.brinobj("reverse")
+        this.brinobj("reverse")
+          //console.log(this.$route.query.lid);
+     //发送请求商品的详情信息
+    this.axios('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
+        console.log(res.data)
+         this.products=res.data.products;
+         this.pics=res.data.pics;
+         this.specs=res.data.specs;
+        this.size=res.data.size;
+         });
     },
 
     props:["lid"], //准备接参数  这是地址栏传的lid  222222
 
     created(){  //相当于window.onload
-    console.log(this.$route.query.lid);
-     //发送请求商品的详情信息
-    this.axios('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
-        console.log(res.data)
-         this.listss=res.data;
-    });
+    //console.log(this.test.length)
+   
     //发送请求商品的轮播图片
    // this.axios()
     // window.addEventListener("resize",()=>{
