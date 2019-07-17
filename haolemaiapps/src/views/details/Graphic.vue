@@ -5,47 +5,47 @@
             <tbody>
                             <tr>
                     <td width="30%">商品编号</td>
-                    <td>17741192</td>
+                    <td>{{list.product_ID}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">性别</td>
-                    <td>女,男</td>
+                    <td>{{list.sex}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">鞋面材质</td>
-                    <td>牛皮</td>
+                    <td>{{list.vamp}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">鞋底材质</td>
-                    <td>橡胶底</td>
+                    <td>{{list.texture}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">鞋帮</td>
-                    <td>低帮</td>
+                    <td>{{list.uppers}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">闭合方式</td>
-                    <td>系带</td>
+                    <td>{{list.closed}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">功能</td>
-                    <td>轻便,耐磨,防滑,透气</td>
+                    <td>{{list.actions}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">适合场地</td>
-                    <td>室外硬地,公路</td>
+                    <td>{{list.sites}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">季节</td>
-                    <td>春</td>
+                    <td>{{list.season}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">温度</td>
-                    <td>适中</td>
+                    <td>{{list.temperature}}</td>
                 </tr> 
                             <tr>
                     <td width="30%">应季月份</td>
-                    <td>11月,10月,9月,8月,7月,6月,5月,4月,3月</td>
+                    <td>{{list.seasonal}}</td>
                 </tr> 
                         </tbody>
         </table>     
@@ -66,9 +66,12 @@
 </template>
 <script>
 export default {
+    props:{
+        list:{default:""} 
+    },
     data(){
         return {
-
+          
         }
     }
 }

@@ -4,11 +4,7 @@
         <header>
             <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/back.png"></a></span>
             <span>登录</span>
-<<<<<<< HEAD
             <span><a href="http://127.0.0.1:8080/#/HomeIndex"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></a></span>
-=======
-            <span><router-link to="/"><img src="http://127.0.0.1:8095/img/personal/Login/goindex.png"></router-link></span>
->>>>>>> 3085bfc6b66be0d49aaab1dbcb46656597bce222
         </header>
         <!--登录页主体-->
         <main>

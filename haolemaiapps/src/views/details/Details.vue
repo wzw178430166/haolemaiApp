@@ -6,8 +6,8 @@
             <div class="title_msleft">
             <span class="title_mes">￥{{products.price}}</span><s class="title_sld">${{products.original}}</s> 
             </div>
-            <div class="title_msright">
-                <span>距结束</span><span class="jieshuee" id="reverse" data-time="2019/8/14 23:59">
+             <div class="title_msright"><!--2019/8/14 23:59 -->
+                <span>距结束</span><span class="jieshuee" id="reverse" :data-time="new Date(products.shelf_time).toLocaleString()">
                 <em></em>天
                 <em>00</em> <span>:</span>
                 <em>00</em> <span>:</span>
@@ -57,17 +57,16 @@
              <div class="paddins"></div>
              <!-- 图文详情 -->
              <div class="discuss">
-                 
                  <div class="disc_item">
-                     <div @click="active='tab1'">图文详情</div>
-                     <div @click="active='tab2'">评论晒单(0)</div>
+                     <div @click="active='tab1'" :style="active=='tab1' ?'border-bottom:1px solid #d70057;color:#d70057':''">图文详情</div>
+                     <div @click="active='tab2'" :style="active=='tab2' ?'border-bottom:1px solid #d70057;color:#d70057':''">评论晒单(0)</div>
                  </div>
                  <div>
                  <!-- 父面板 -->
                   <mt-tab-container v-model="active">
                  <!-- 子面板 -->
                  <mt-tab-container-item id="tab1">
-                         <graphic></graphic>
+                         <graphic :list=specs[0]></graphic>
                  </mt-tab-container-item>
                  <mt-tab-container-item id="tab2">
                   <div style="width:100%;height:500px;">
@@ -120,6 +119,7 @@ export default {    //打包后直接可在服务器host里运行
          moves(){  //手指滑动屏幕触发
              console.log(1111);
          },
+      
          
            //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
 
@@ -202,7 +202,7 @@ export default {    //打包后直接可在服务器host里运行
        "evaluate":Evaluate  //热门评价
     },
     mounted() { //加载后发ajxa请求     //this.$router.push('/main?lid=10');
-        this.brinobj("reverse")
+        this.brinobj("reverse");
           //console.log(this.$route.query.lid);
      //发送请求商品的详情信息
     this.axios('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
@@ -212,13 +212,15 @@ export default {    //打包后直接可在服务器host里运行
          this.specs=res.data.specs;
         this.size=res.data.size;
          });
+   Date.prototype.toLocaleString = function() {
+     //  console.log(this.getDate());
+          return this.getFullYear() + "/" + (this.getMonth() + 1) + "/" + this.getDate() + "/ " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
+         }
     },
 
     props:["lid"], //准备接参数  这是地址栏传的lid  222222
 
     created(){  //相当于window.onload
-    //console.log(this.test.length)
-   
     //发送请求商品的轮播图片
    // this.axios()
     // window.addEventListener("resize",()=>{
