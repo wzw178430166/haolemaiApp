@@ -75,6 +75,7 @@ export default {
 </script>
 <style scoped>
     .tables{width:100%;}
+    .tables table{width:100%;}
     .tables table tr td{height: 2.5rem;line-height: 2.5rem;border-top:1px solid #e7e7e7;border-bottom: 1px solid #e7e7e7;color:#818181;font-size: 1rem;padding-left: 1rem;}
     img{width:100%;}
     .list_img{width:80%;margin: 0 auto;}

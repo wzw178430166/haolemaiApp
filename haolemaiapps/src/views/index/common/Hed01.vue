@@ -4,7 +4,11 @@
       <a class="search">
             <img src="http://127.0.0.1:8095/img/appimg/index_img/indexsearch.png">
       </a>
-      <a href="#" class="btn_login">登录</a>
+<<<<<<< HEAD
+      <a href="http://127.0.0.1:8080/#/Login" class="btn_login">登录</a>
+=======
+      <router-link to="/Login" class="btn_login">登录</router-link>
+>>>>>>> 3085bfc6b66be0d49aaab1dbcb46656597bce222
    </div>
 </template>
 <script>

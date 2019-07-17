@@ -1,4 +1,4 @@
-//router.js 引入路由1111111111111
+//router.js 引入路由
 import Vue from 'vue'
 import Router from 'vue-router'
 //自定义组件
@@ -20,16 +20,16 @@ import Panel2 from "./views/index/common/Panel2.vue"
 Vue.use(Router)
 export default new Router({
   routes: [
-    {path:"/Panel2",component:Panel2},//待删
+    {path:"/Panel2",component:Panel2},//待删1
     {path: '/', redirect: '/HomeIndex' }, //重定向，index 什么都没有输入就重定向到首页
     {path:"/search",component:search},
     {path:'/Personal',component:Personal},   //个人中心
     {path:'/Login',component:Login},   // 项目登录 
-    {path:'/Register',component:Register},
+    {path:'/Register',component:Register},//注册
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
-    {path:'/Details',component:Details},  //商品详情页
-    {path:'/cart',component:Cart}   //添加购物车   //this.$store
+    {path:'/Details/details',component:Details,props:true},  //商品详情页 111111
+    {path:'/cart',component:Cart}   //添加购物车   //this.$store 共享数据
   ]
 })
 

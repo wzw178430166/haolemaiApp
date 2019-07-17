@@ -1,13 +1,13 @@
 <template>
-    <div class="main" :style="{width:innerWidth+'px'}" @touchmove="moves">
+    <div class="main" @touchmove="moves"><!-- :style="{width:innerWidth+'px'}"-->
         <titleback msg="商品详情" class="titleback"></titleback>
-        <carousel :list=listj></carousel>
+        <carousel :list=pics></carousel>
         <div class="title_meg">
             <div class="title_msleft">
-            <span class="title_mes">￥119</span><s class="title_sld">￥499</s> 
+            <span class="title_mes">￥{{products.price}}</span><s class="title_sld">${{products.original}}</s> 
             </div>
             <div class="title_msright">
-                <span>距结束</span><span class="jieshuee" id="reverse" data-time="2019/7/14 23:59">
+                <span>距结束</span><span class="jieshuee" id="reverse" data-time="2019/8/14 23:59">
                 <em></em>天
                 <em>00</em> <span>:</span>
                 <em>00</em> <span>:</span>
@@ -17,13 +17,13 @@
         </div>
 
           <div class="xiangs">
-              <p>女式&nbsp;卡骆驰女士都会街头帆布便鞋</p>
-              <p><span>限时特卖</span><span>【特价且部分下单再享8折】CROCS清仓</span></p>
+              <p>{{products.lname}}</p> 
+              <p><span>{{products.title}}</span><span>{{products.subtitle}}</span></p>
           </div>
           <div class="diyie">
-              <p><span>满折</span>【下单8折】crocs度假开启 >></p>
+              <p><span>{{products.title_sec}}</span>{{products.subtitle_sec}}</p>
           </div>
-            <p class="refund"><span><img src="http://127.0.0.1:8095/img/details/remind.png" alt=""></span>此商品仅支持退货，不支持换货。</p>
+            <p class="refund"><span><img src="http://127.0.0.1:8095/img/details/remind.png" alt=""></span>{{products.promise}}</p>
           <div class="paddins"></div>
           <!-- 规格 -->
           <div class="specification" :style="{'padding-bottom':sizenum.num}">
@@ -43,16 +43,8 @@
                     <p class="me-p"><span>尺寸</span><router-link to="#" class="measur_rout">尺码对照表</router-link> </p>
                     <div class="measure_item">
                         <ul>
-                            <li class="mead_active">w5</li>
-                             <li>w6</li>
-                              <li>w7</li>
-                               <li>w8</li>
-                                <li>w9</li>
-                                 <li>w6</li>
-                              <li>w7</li>
-                               <li>w8</li>
-                                <li>w9</li>
-                                       <li>w7</li>
+                            <li v-for="(elem,i) in size[0]" :key='i'>{{elem}}</li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -81,7 +73,6 @@
                   <div style="width:100%;height:500px;">
                          <evaluate></evaluate>
                         </div>
-                
                      </mt-tab-container-item>
                  </mt-tab-container>
                  </div>
@@ -91,15 +82,15 @@
                   <!-- 底部导航栏 -->
                 <div class="tab_button">  <!--  http://127.0.0.1:8095/img/details/cart.png -->
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
-                   <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
+                   <div><router-link to="/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
                    <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
-                   <div><router-link to="#">加入购物车</router-link></div>
+                   <div @click.prevent="adds"><router-link to="http://127.0.0.1:8095/details?lid=1">加入购物车</router-link></div>
                 </div>
           <!-- <div style="width:100%;height:500px;background:red;"></div> -->
     </div>
 </template>
 
-<script>
+<script>  ////<router-link :to="`/Details/details?lid=`+lid">加入购物车</router-link>
 import TitleBack from "../../components/TitleBack"  //引入子组件中的头部标题TitleBack
 import Carousel from "../../components/Carousel"  //引入子组件中的轮播图组件Carousel
 import Graphic from "./Graphic"  //引入子组件 图文详情
@@ -109,20 +100,46 @@ export default {    //打包后直接可在服务器host里运行
         return {
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
-            sizenum:{num:'5rem'},
+            sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
                   {img:'http://127.0.0.1:8095/img/lunbotu/1.jpg'},
                   {img:'http://127.0.0.1:8095/img/lunbotu/2.jpg'},
-                  {img:'http://127.0.0.1:8095/img/lunbotu/3.jpg'}
+                  {img:'http://127.0.0.1:8095/img/lunbotu/3.jpg'},
+                   {img:'http://127.0.0.1:8095/img/lunbotu/4.jpg'},
+                    {img:'http://127.0.0.1:8095/img/lunbotu/5.jpg'}
             ],
-            innerWidth:window.innerWidth
-        }
+           // innerWidth:window.innerWidth,
+            products:{},  //这是商品详情数据
+            pics:[],    //商品轮播图片
+            specs:[],  //商品规格
+            size:[] ,  //鞋子的码数
+          }
     },
     methods: {
-         moves(){
+         moves(){  //手指滑动屏幕触发
              console.log(1111);
          },
+         
+           //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
+
+          /*  getCount(type){ //type是请求中的prams传过去的值。
+                 return new Promise( //中没有return，只能靠开门解决之前的open
+                     function(resolve,reject){
+                      
+                          this.axios.get(
+                     "/product_list",{
+                         params:{type} //本来的c参数换成函数的参数type,一样参数和属性的就写一个就可以了
+                     }
+                 ).then(res=>{
+                     resolve(res.data.count); //总数累加
+                     //开门（传参） 在下面的 count接着总数累加
+              //Promise中没有return 使用resolve抛出
+                    // total+=res.data.count;
+                 });
+                     }
+                 )
+             },*/
         			//限时购
 			 brinobj(id){
   var timer = null;//这里设置time为null，用于下面来清除计时器
@@ -177,19 +194,58 @@ export default {    //打包后直接可在服务器host里运行
     
     
     },
+
     components:{
        "titleback":TitleBack , //注册子组件
-       "carousel":Carousel,
+       "carousel":Carousel,   //轮播的子组件
        "graphic":Graphic,   //图文详情
        "evaluate":Evaluate  //热门评价
     },
     mounted() { //加载后发ajxa请求     //this.$router.push('/main?lid=10');
         this.brinobj("reverse")
+          //console.log(this.$route.query.lid);
+     //发送请求商品的详情信息
+    this.axios('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
+        console.log(res.data)
+         this.products=res.data.products;
+         this.pics=res.data.pics;
+         this.specs=res.data.specs;
+        this.size=res.data.size;
+         });
     },
+
+    props:["lid"], //准备接参数  这是地址栏传的lid  222222
+
     created(){  //相当于window.onload
-    window.addEventListener("resize",()=>{
-      this.innerWidth=window.innerWidth;
-    })
+    //console.log(this.test.length)
+   
+    //发送请求商品的轮播图片
+   // this.axios()
+    // window.addEventListener("resize",()=>{
+    //   this.innerWidth=window.innerWidth;
+    // })
+    //调用函数方法发送axions请求
+         //三个请求串行  这个有先后执行完顺序，执行完时间是相加一起的。 （看企业需要：需要播完号再打电话用这个，不需要等待用Porseim.all()这个方法）
+          /*    this.getCount('a').then(
+                  function(count){ //count是请求中返回的结果
+                    total+=count;
+                   // console.log(total);
+                   return this.getCount('b'); //又发了一次异步请求，发了一个带参是‘b’的值 相当于 new Promise()
+                  }
+              )
+              .then(function(count){
+                  total+=count;
+                  return this.getCount('c') //等于又一个new Promise()
+                  // console.log(total);
+              })
+         //.then 一直请求then累加 总和
+         //.then  在getCount('c') 后执行
+            .then(function(count){                
+                total+=count;
+                console.log(total);
+            })  */
+
+
   },
 }
 </script>

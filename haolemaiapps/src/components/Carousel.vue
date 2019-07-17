@@ -1,10 +1,10 @@
 <template>
     <div class="carousel_out">
-             <!-- 轮播图11233322-->
+             <!-- 轮播图-->
      <div id="content">
 <mt-swipe :auto="3000" @change="hangeder">
-  <mt-swipe-item v-for="(elem,i) of list" :key=i>
-      <img :src="elem.img" alt="" class="imgs">
+  <mt-swipe-item v-for="(elem,i) of list" :key="i">
+      <img :src="elem.sm" alt="" class="imgs">
   </mt-swipe-item>
 </mt-swipe>
         </div>
