@@ -102,7 +102,7 @@
         <!-- 主要内容 -->
         <div class="listcontent">
             <!-- 商品列表 -->
-            <router-link to="Details/details" class="listbox1" v-for="(item,i) of comm_list" :key="i">
+            <router-link :to="'Details/details?lid='+item.paixu" class="listbox1" v-for="(item,i) of comm_list" :key="i">
                 <div class="listbox2">
                     <img :src="item.img_url">
                     <p>{{item.title1}}</p>
@@ -175,12 +175,13 @@ export default {
         //商品列表函数
         commlist(){
             var url = "index/commlist"
-            this.pno++;
+            
             var obj={pno:this.pno,pageSize:this.ps}
             this.axios.get(url,{params:obj}).then(result=>{
                 //为了数据不被覆盖，传输数据的时候要用方法concat
                var t=this.comm_list.concat(result.data.data);
                 this.comm_list=t;
+                this.pno++;
             })
         }
     },

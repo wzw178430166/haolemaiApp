@@ -29,7 +29,9 @@
               <h3>{{action}}</h3>
                <!-- 商品循环 -->
                <li class="shangpin_li" v-for="(item,i) of list" :key="i">
-                  <router-link to="#" class="shangpin_a">
+
+                  <!-- ********************************************** -->
+                  <router-link to="Product" class="shangpin_a">
                      <div class="shangpin">
                         <img :src="item.img_url">
                         <p>
