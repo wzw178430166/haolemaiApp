@@ -208,10 +208,11 @@ export default {
             var url = "user/login";
             var obj = {phone:phone,upwd:upwd};
             this.axios.get(url,{params:obj}).then(result=>{
-                if(result.data.code<0){
-                    this.$toast(result.data.msg);
+                if(result[0]<0){
+                    this.$toast("用户名或密码错误");
                 }else{
-                    this.$toast(result.data.msg);
+                    // this.$router.go(-1);
+                    this.$router.push("Cart");
                 }
             });
         },
@@ -291,7 +292,7 @@ export default {
     }
     .register_input{
         height:1.95rem;
-        padding: .15rem 0 .15rem .8rem;
+        padding-left:.8rem;
         color: #333;
         font-size: .8rem;
         border:0px;
