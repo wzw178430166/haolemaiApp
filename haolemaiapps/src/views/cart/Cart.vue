@@ -151,9 +151,25 @@
 export default {
     data(){
         return {
-     
+         
         }
+    },
+    methods: {
+       
+          
+        
+    },
+    mounted() {
+     
+    },
+    created(){
+      //加载后发送请求购物车商品
+          //请求购物车商品
+             this.axios.get('shopping/cart?id=1').then(res=>{  
+                console.log(res);
+             }).catch(err=>{console.log(err)})
     }
+     
 }
 </script>
 

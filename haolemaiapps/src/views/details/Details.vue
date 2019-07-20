@@ -30,12 +30,8 @@
               <div class="colors">
                   <p class="colors_p">颜色</p>
                   <ul class="specification_img">
-                      <li class="spimg_item"><img src="http://127.0.0.1:8095/img/details/1.png" alt=""></li>
-                      <li><img src="http://127.0.0.1:8095/img/details/2.png" alt=""></li>
-                      <li><img src="http://127.0.0.1:8095/img/details/3.png" alt=""></li>
-                      <li><img src="http://127.0.0.1:8095/img/details/4.png" alt=""></li>
-                       <li><img src="http://127.0.0.1:8095/img/details/3.png" alt=""></li>
-                      <li><img src="http://127.0.0.1:8095/img/details/4.png" alt=""></li>
+                      <li v-for="(elem,i) of img" :key='i' :class="imgs==i?'spimg_item':''" @click="gotoimg(elem,i)"><img :src="elem.img" alt=""></li>
+                    
                   </ul>
               </div>
             <!-- 尺寸 -->
@@ -79,10 +75,10 @@
 
             
              </div>
-                  <!-- 底部导航栏 -->
+                  <!-- 底部导航栏 http://127.0.0.1:8095/shopping/cart-->
                 <div class="tab_button">  <!--  http://127.0.0.1:8095/img/details/cart.png -->
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
-                   <div><router-link to="/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
+                   <div><router-link to="/shopping/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
                    <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
                    <div @click.prevent="adds"><router-link to="#">加入购物车</router-link></div>
                 </div>
@@ -101,6 +97,7 @@ export default {    //打包后直接可在服务器host里运行
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
             action:0,   //切换尺寸的样式
+            imgs:0,
            sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
@@ -118,7 +115,8 @@ export default {    //打包后直接可在服务器host里运行
             dibu:[],   //底部图片
             sizes:[],   //对象转数组
             lidss:[],
-           
+            img:[]
+
           }
     },
     methods: {
@@ -129,28 +127,41 @@ export default {    //打包后直接可在服务器host里运行
              sessionStorage.setItem("size",n);
                 for(var i=0;i<this.sizes.length;i++){
                  if(index==i){
-                     this.action=index;
+                     this.action=index;  // 再设置一个action可以设置成双向绑定的效果
+                 }
+             }
+         },
+         gotoimg(n,index){
+             console.log(n);
+             var img=n.img;  // 图片的url地址
+               sessionStorage.setItem("img_url",img);
+    for(var i=0;i<this.img.length;i++){
+                 if(index==i){
+                     this.imgs=index;    
                  }
              }
          },
            adds(){    //保存尺寸在客户端方便取出来     //加入购物车
            //  var flag=true;
           var  size=sessionStorage.getItem("size");
-         if(size!=undefined){
+           var  img_url=sessionStorage.getItem("img_url");
+         if(size!=undefined&&img_url!=undefined){
           var price=this.products.price;
+          var lname=this.products.lname;
           //lid   price  size  http://127.0.0.1:8095/shopping/add?lid=5&price=66&size=66
            console.log(size);
              console.log(price);
                console.log(this.lidss);
+
              
-       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size}}).then(res=>{
+       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size,img:img_url,lname:lname}}).then(res=>{
            console.log(res)
        }).catch(err=>{console.log(err);
        });
                }else{
                //请选择码数  做一个弹框用mint-ui
               this.$toast({
-                    message:"请选择码数",//内容
+                    message:"请先选择规格",//内容
                     position:"middle",   //位置
                     duration:3000,     //时间
                     className:"mytoast",//添加样式
@@ -252,7 +263,15 @@ export default {    //打包后直接可在服务器host里运行
         this.dibu=res.data.dibu;
         this.lidss=this.$route.query.lid;
          var sizes=res.data.size; //把对象转为数组
+         var img=res.data.img;  //把图片对象转为数组
+         console.log(img)
         var arr=[];
+        // var arrimg=[];
+        //  for(var i in img){
+        //     arrimg.push(img[i]);
+        // }
+        this.img=img;
+        //尺寸
         for(var i in sizes[0]){
             arr.push(sizes[0][i]);
         }
