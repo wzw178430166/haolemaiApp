@@ -8,24 +8,35 @@
         </header>
         <!--登录页主体-->
         <main>
-            <div class="login_box">
-                <!--用户账号-->
+           <div class="login_box">
+                <!-- 用户账号-->
+                <mt-field label=""  v-model="phone" class="register_input" placeholder="用户名/邮箱/手机号"></mt-field>
+                 <!--用户密码-->
+                <mt-field label="" v-model="upwd" class="register_input" placeholder="请输入6-16个字符，数字及字母组合" type="password"></mt-field>
+                 <!-- 图像验证码-->
+                <mt-field label="" v-model="inputCode" class="register_input" placeholder="请输入验证码" type="tel">
+                    <span  @click="refreshCode">
+                        <!--<img src="" id="getcode_img">-->
+                        <Random-code id="getcode_img" :identifyCode="identifyCode"></Random-code>
+                    </span>
+                </mt-field>
+               <!-- 用户账号
                 <label for="uname">
                     <div class="login_input_wrap">
-                        <input id="uname" class="register_input" type="text" placeholder="用户名/邮箱/手机号">
+                        <input id="uname" v-model="phone" class="register_input" type="text" placeholder="用户名/邮箱/手机号">
                         <span class="del_input"><b></b></span>
                     </div>
                 </label>
-                <!--用户密码-->
+                用户密码
                 <label for="upwd">
                     <div class="login_input_wrap">
-                        <input id="upwd" class="register_input" type="password" placeholder="请输入6-16个字符，数字及字母组合">
+                        <input id="upwd" v-model="upwd" class="register_input" type="password" placeholder="请输入6-16个字符，数字及字母组合">
                         <span class="toggle_hide_image">
                             <b class="hide"></b>
                         </span>
                     </div>
-                </label>
-                <!--图像验证码-->
+                </label>-->
+                <!--图像验证码
                 <label  for="iconcode">
                     <div class="login_input_wrap">
                         <input id="iconcode" class="register_input" type="tel" placeholder="请输入验证码">
@@ -34,7 +45,7 @@
                             <img src="" id="getcode_img">
                         </span>
                     </div>
-                </label>
+                </label>-->
             </div>
             <div class="loginnowbox">
                 <div class="loginmethod">
@@ -56,7 +67,7 @@
                 <span class="msgreply"></span>
                 <font style="vertical-align: inherit;">
                     <font style="vertical-align: inherit;">
-                        <input type="button" value="登录" class="purplebtn">
+                        <input type="button" value="登录" @click="login" class="purplebtn">
                     </font>
                 </font>
                 <div class="unexcended">
@@ -157,17 +168,75 @@
             </div>
         </footer>
     </div>
-
 </template>
-
 <script>
+import RandomCode from "./Random_code.vue" ;
 export default {
+    components:{
+        RandomCode
+    },
     data(){
         return {
-
+            phone:"",
+            upwd:"",
+            identifyCodes: "1234567890",
+            identifyCode: "",
+            inputCode:""
         }
+    },
+    methods: {
+        login(){
+            var phone=this.phone;
+            var upwd=this.upwd;
+            var inputCode=this.inputCode;
+            var phonereg=/^[1]([3-9])[0-9]{9}$/;
+            var upwdreg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+            console.log(inputCode);
+            console.log(this.identifyCode);
+            if(!phonereg.test(phone)){  
+                this.$toast("用户名格式不正确");
+                return;
+            }
+            if(!upwdreg.test(upwd)){
+                this.$toast("密码格式不正确");
+                return;
+            }
+            if(inputCode!=this.identifyCode){
+                this.$toast("验证码不正确");
+                return;
+            }
+            var url = "user/login";
+            var obj = {phone:phone,upwd:upwd};
+            this.axios.get(url,{params:obj}).then(result=>{
+                if(result[0]<0){
+                    this.$toast("用户名或密码错误");
+                }else{
+                    // this.$router.go(-1);
+                    this.$router.push("Cart");
+                }
+            });
+        },
+        randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        },
+        refreshCode() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
+            },
+            makeCode(o, l) {
+            for (let i = 0; i < l; i++) {
+                this.identifyCode += this.identifyCodes[
+                this.randomNum(0, this.identifyCodes.length)
+                ];
+            }
+            // console.log(this.identifyCode);
+            }
+        },
+        mounted() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
+        },
     }
-}
 </script>
 
 <style scoped>
@@ -175,8 +244,9 @@ export default {
     *{
         margin:0;
         padding:0;
-        font-family: '黑体',Arial,SimSun,Helvetica,sans-serif;
+        font-family: '黑体',Arial,SimSun,Helvetica,sans-serif !important;
         text-decoration:none;
+        font-size:1rem !important ;
     }
 
     /* 登录页样式*/
@@ -222,7 +292,7 @@ export default {
     }
     .register_input{
         height:1.95rem;
-        padding: .15rem 0 .15rem .8rem;
+        padding-left:.8rem;
         color: #333;
         font-size: .8rem;
         border:0px;
@@ -268,11 +338,8 @@ export default {
         z-index: 3;
     }
     #getcode_img{
-        margin-top: .25rem;
-        width: 4rem;
-        height:2rem;
+        margin-right: -0.3rem;
     }
-
     .loginnowbox{
         width:100%;
         padding:0 1rem;

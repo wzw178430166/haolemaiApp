@@ -66,7 +66,7 @@
          </mt-tab-container-item>   
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <!--面板5-->
-         <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
+         <mt-tab-container-item id="user"></mt-tab-container-item>  
          </mt-tab-container>   
       <!-- 底部导航栏 -->
       <mt-tabbar v-model="active" fixed>
@@ -74,8 +74,8 @@
             <tabbar01 
             tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye1.png"
             tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye0.png"
-            :panduan="torf[0].s"
-            ></tabbar01>
+            :panduan="torf[0].s">
+            </tabbar01>
          </mt-tab-item>
           <mt-tab-item id="fenlei" @click.native="select(1)">
             <tabbar01
