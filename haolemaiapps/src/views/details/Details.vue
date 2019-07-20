@@ -6,8 +6,8 @@
             <div class="title_msleft">
             <span class="title_mes">￥{{products.price}}</span><s class="title_sld">${{products.original}}</s> 
             </div>
-            <div class="title_msright">
-                <span>距结束</span><span class="jieshuee" id="reverse" data-time="2019/8/14 23:59">
+             <div class="title_msright"><!--2019/8/14 23:59 -->
+                <span>距结束</span><span class="jieshuee" id="reverse" :data-time="new Date(products.shelf_time).toLocaleString()">
                 <em></em>天
                 <em>00</em> <span>:</span>
                 <em>00</em> <span>:</span>
@@ -43,8 +43,9 @@
                     <p class="me-p"><span>尺寸</span><router-link to="#" class="measur_rout">尺码对照表</router-link> </p>
                     <div class="measure_item">
                         <ul>
-                            <li v-for="(elem,i) in size[0]" :key='i'>{{elem}}</li>
-                            
+                            <li v-for="(elem,i) of sizes" :key="i" :class="action==i?'mead_active':''" @click="goto(elem)">
+                                    {{elem}}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -57,17 +58,16 @@
              <div class="paddins"></div>
              <!-- 图文详情 -->
              <div class="discuss">
-                 
                  <div class="disc_item">
-                     <div @click="active='tab1'">图文详情</div>
-                     <div @click="active='tab2'">评论晒单(0)</div>
+                     <div @click="active='tab1'" :style="active=='tab1' ?'border-bottom:1px solid #d70057;color:#d70057':''">图文详情</div>
+                     <div @click="active='tab2'" :style="active=='tab2' ?'border-bottom:1px solid #d70057;color:#d70057':''">评论晒单(0)</div>
                  </div>
                  <div>
                  <!-- 父面板 -->
                   <mt-tab-container v-model="active">
                  <!-- 子面板 -->
                  <mt-tab-container-item id="tab1">
-                         <graphic></graphic>
+                         <graphic :list=specs[0] :dibu=dibu></graphic>
                  </mt-tab-container-item>
                  <mt-tab-container-item id="tab2">
                   <div style="width:100%;height:500px;">
@@ -84,7 +84,7 @@
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
                    <div><router-link to="/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
                    <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
-                   <div @click.prevent="adds"><router-link to="http://127.0.0.1:8095/details?lid=1">加入购物车</router-link></div>
+                   <div @click.prevent="adds"><router-link to="#">加入购物车</router-link></div>
                 </div>
           <!-- <div style="width:100%;height:500px;background:red;"></div> -->
     </div>
@@ -100,7 +100,8 @@ export default {    //打包后直接可在服务器host里运行
         return {
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
-            sizenum:{num:'7rem'},
+            action:"",   //切换尺寸的样式
+           sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
                   {img:'http://127.0.0.1:8095/img/lunbotu/1.jpg'},
@@ -114,13 +115,53 @@ export default {    //打包后直接可在服务器host里运行
             pics:[],    //商品轮播图片
             specs:[],  //商品规格
             size:[] ,  //鞋子的码数
+            dibu:[],   //底部图片
+            sizes:[],   //对象转数组
+            lidss:[],
+           
           }
     },
     methods: {
          moves(){  //手指滑动屏幕触发
              console.log(1111);
          },
-         
+         goto(n){
+             console.log(n);
+             sessionStorage.setItem("size",n);
+               //  for(var i=0;i<this.sizes.length;i++){
+            //    //  console.log(i);
+            //      if(n==i){
+            //          console.log('aaa');
+            //          this.active=n;
+            //      }
+            //  }
+         },
+           adds(){    //保存尺寸在客户端方便取出来     //加入购物车
+           //  var flag=true;
+          var  size=sessionStorage.getItem("size");
+         if(size!=undefined){
+          var price=this.products.price;
+          //lid   price  size  http://127.0.0.1:8095/shopping/add?lid=5&price=66&size=66
+           console.log(size);
+             console.log(price);
+               console.log(this.lidss);
+             
+       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size}}).then(res=>{
+           console.log(res)
+       }).catch(err=>{console.log(err);
+       });
+               }else{
+               //请选择码数  做一个弹框用mint-ui
+              this.$toast({
+                    message:"请选择码数",//内容
+                    position:"middle",   //位置
+                    duration:3000,     //时间
+                    className:"mytoast",//添加样式
+                  //  iconClass:"iconfont icon-food-cake"
+                    });
+             //  console.log('请选择码数');
+               }
+         },
            //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
 
           /*  getCount(type){ //type是请求中的prams传过去的值。
@@ -202,23 +243,34 @@ export default {    //打包后直接可在服务器host里运行
        "evaluate":Evaluate  //热门评价
     },
     mounted() { //加载后发ajxa请求     //this.$router.push('/main?lid=10');
-        this.brinobj("reverse")
+        this.brinobj("reverse");
           //console.log(this.$route.query.lid);
      //发送请求商品的详情信息
-    this.axios('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
+    this.axios.get('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
         console.log(res.data)
          this.products=res.data.products;
          this.pics=res.data.pics;
          this.specs=res.data.specs;
         this.size=res.data.size;
+        this.dibu=res.data.dibu;
+        this.lidss=this.$route.query.lid;
+         var sizes=res.data.size; //把对象转为数组
+        var arr=[];
+        for(var i in sizes[0]){
+            arr.push(sizes[0][i]);
+        }
+        this.sizes=arr;
          });
+   Date.prototype.toLocaleString = function() {
+     //  console.log(this.getDate());
+          return this.getFullYear() + "/" + (this.getMonth() + 1) + "/" + this.getDate() + "/ " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
+         }
     },
 
     props:["lid"], //准备接参数  这是地址栏传的lid  222222
 
-    created(){  //相当于window.onload
-    //console.log(this.test.length)
-   
+    created(){  
+        //相当于window.onload
     //发送请求商品的轮播图片
    // this.axios()
     // window.addEventListener("resize",()=>{
@@ -251,6 +303,13 @@ export default {    //打包后直接可在服务器host里运行
 </script>
 
 <style scoped>
+      /*mint-ui弹出请选择尺码的样式*/
+    .mytoast{
+  background-color:#fff !important;
+  color:#e4393c !important;
+  font-size:19px !important;
+  border:1px solid #333  !important; 
+}
     /*底部导航*/
     .tab_button{width:100%;height: 3.5rem;position: fixed;bottom: 0;display:flex;}
     .tab_button div:nth-child(1){width:25%;box-sizing: border-box;text-align: center;background-color: #FFFFFF;border-top:1px solid #e8e8e8;border-right: 1px solid #e8e8e8;}
@@ -273,6 +332,7 @@ export default {    //打包后直接可在服务器host里运行
     /* 尺寸 */
     .measure_item ul{width:100%;height: 3rem;list-style: none;margin-top: .75rem;padding-bottom: 1.5rem;}
     .measure_item ul li{width:3.5rem;height: 2.5rem;line-height:2.5rem;list-style: none;float: left;background-color: #F4F4F4;text-align: center;margin-right: .5rem;border-radius: 10%;margin-top: 1rem;}
+    /*尺寸样式*/
     .measure_item ul .mead_active{background: #D70057!important;}
     .measure{width:100%;clear: both;}
     .measure .me-p{padding-top: 2rem;}
