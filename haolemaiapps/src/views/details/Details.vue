@@ -122,7 +122,7 @@ export default {    //打包后直接可在服务器host里运行
           }
     },
     methods: {
-         moves(){  //手指滑动屏幕触发1
+         moves(){  //手指滑动屏幕触发11
              console.log(1111);
          },
          goto(n,index){
