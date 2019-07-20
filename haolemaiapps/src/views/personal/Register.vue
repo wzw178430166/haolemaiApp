@@ -70,7 +70,7 @@
                     </a>
                 </span>
                 <p class="hreflogin">
-                    <a  href="http://127.0.0.1:8080/#/Login">
+                         <a  href="http://127.0.0.1:8080/#/Login">
                          <font style="vertical-align: inherit;">
                              <font style="vertical-align: inherit;">已有账号，去登陆</font>
                          </font>
