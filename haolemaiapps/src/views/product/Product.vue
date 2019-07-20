@@ -12,29 +12,38 @@
            <div class="list" >
               <span v-for="(item,i) of list2" :key="i" class="list2" :class="alter1==i?'list2_1':''" @click="goto2(i)">{{item}} <i></i> </span>
            </div>
-           <!-- 隐藏小boss（div) -->
+           <!-- 隐藏小boss（div) 下拉列表 -->
             <div class="minBoss" >
+                <!-- 分类 -->
                 <ul class="min_ul" :class="alter1==0?'min_ul2':''" >
-                    <li class="min_li" v-for="(item,i) of fiter1" :key="i" @click="clickLi(i)"
-                   :class="alter2==i?'min_li2':''">{{item}}</li>
-                    <button class="anniu">重置</button>
-                    <button class="anniu anniu2">确认</button>
+                    <li class="min_li" v-for="(item,i) of fiter1" :key="i" @click="clickLi1(i)"
+                   :class="dhl1==i?'min_li2':''" >{{item.title}}</li>
+                   <div class="btn2">
+                     <button class="anniu" @click="chongzhi">重置</button>
+                    <button class="anniu anniu2" @click="ok1(dhl1)">确认</button>
+                   </div>
                 </ul>
+
                 <ul :class="alter1==1?'min_ul2':''" class="min_ul" >
-                    <li class="min_li" v-for="(item,i) of fiter2" :key="i" @click="clickLi(i)"
-                   :class="alter2==i?'min_li2':''">{{item}}</li>
-                    <button class="anniu">重置</button>
-                    <button class="anniu anniu2">确认</button>
+                    <li class="min_li" v-for="(item,i) of fiter2" :key="i" @click="clickLi2(i)"
+                   :class="dhl2==i?'min_li2':''">{{item.brand}}</li>
+                   <div class="btn2">
+                        <button class="anniu" @click="chongzhi">重置</button>
+                        <button class="anniu anniu2">确认</button>
+                   </div>
+        
                 </ul>
                 <ul :class="alter1==2?'min_ul2':''" class="min_ul" >
-                    <li class="min_li" v-for="(item,i) of fiter3" :key="i" @click="clickLi(i)"
-                   :class="alter2==i?'min_li2':''">{{item}}</li>
-                    <button class="anniu">重置</button>
-                    <button class="anniu anniu2">确认</button>
+                    <li class="min_li" v-for="(item,i) of fiter3" :key="i" @click="clickLi3(i)"
+                   :class="dhl3==i?'min_li2':''">{{item}}</li>
+                    <div class="btn2">
+                        <button class="anniu" @click="chongzhi">重置</button>
+                        <button class="anniu anniu2">确认</button>
+                    </div>
                 </ul>
             </div>
        </div>
-       <!-- 隐藏的boss -->
+       <!-- 隐藏的boss 点击筛选出现的内容 -->
        <div class="hideboss" :class="alter==4?'hideboss1':''">
            <!-- 最大的爹 -->
          <div class="fatherMax">
@@ -47,7 +56,7 @@
                         <span>分类</span>
                     </div>
                     <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 9" :key="i"></a>
+                        <a href="#" class="child" v-for="(elem,i) of fiter1" :key="i">{{elem.title}}</a>
                     </div>
                 </div>
                 <!-- 品牌 -->
@@ -56,7 +65,7 @@
                         <span>品牌</span>
                     </div>
                     <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 1" :key="i"></a>
+                        <a href="#" class="child" v-for="(elem,i) of fiter2" :key="i">{{elem.brand}}</a>
                     </div>
                 </div>
                 <!-- 性别 -->
@@ -65,7 +74,8 @@
                         <span>性别</span>
                     </div>
                     <div class="fatherMin">
-                        <a href="#" class="child" v-for="(elem,i) of 2" :key="i"></a>
+                        <a href="#" class="child">男</a>
+                        <a href="#" class="child">女</a>
                     </div>
                 </div>
                 <!-- 价格区间 -->
@@ -103,9 +113,9 @@
                     <span>仅看有货商品</span>
                 </div>
             </div>
+            <!-- 两个按钮 -->
             <div>
-                <!-- 两个按钮 -->
-                <button class="anniu">重置</button>
+                <button class="anniu" @click="chongzhi">重置</button>
                 <button class="anniu anniu2">确认</button>
             </div>
         </div>
@@ -137,25 +147,30 @@
 //1.1：右边显示的div列表，6块功能，分类>(6)、品牌>(1)、性别>(2)、价格区间>(3)、尺寸>(6)、仅看有货商品(复选框)，下边两个按钮；重置和确定
 //2.第二个列表：三个选项，分类，品牌，尺寸，每次点击都显示下面div
 //主要内容的商品列表：div>div*2 1.div>img 2.div>span*4
-//
+//尺寸数据表：
 
 
 import TitleBack from "../../components/TitleBack"  //引入子组件中的头部标题TitleBack
 export default {
+    created(){
+        this.commlist();
+    },
     data(){
         return {
             alter:"",//用来存储改变的值
             list1:["默认","销量","价格","折扣","筛选"],
             list2:["分类","品牌","尺寸"],
-            fiter1:["男鞋","女鞋","男凉鞋","女凉鞋","男休闲鞋","女休闲鞋","男布鞋","女布鞋"],
-            fiter2:["杂牌","阿迪达斯","362度","踏步","鸿星尔克","1903牌"],
+            fiter1:[],
+            fiter2:[],
             fiter3:["C6","C7","C8","C9","C10","C11","J2","J3","J4","J5"],
             abc:"0",//用来存储背景的值
             comm_list:[],//用来存储商品列表
             pno:1,
-            ps:4,
+            ps:6,
             alter1:"-1",
-            alter2:""
+            dhl1:"",
+            dhl2:"",
+            dhl3:""
         }
     },methods:{
         goto1(n){
@@ -164,10 +179,20 @@ export default {
                     this.alter=i;
                     console.log(n);//获取每个点击对象的下标，先放置
                 }
-                if(n==4){
-                    console.log("选中");
+                if(n==4){//点击筛选
+                    console.log("筛选");
                     this.alter=n;
                     this.abc=1;
+                    var url1="/index/fenlei1"
+                    var url2="/index/brand1"
+                    //发送获取分类请求
+                      this.axios(url1).then(result=>{
+                          this.fiter1=result.data;
+                      })//发送获取品牌的请求
+                      this.axios(url2).then(result=>{
+                          this.fiter2=result.data;
+                      })
+                    
                     return;
                 }
             }
@@ -178,16 +203,36 @@ export default {
             this.alter1="min_ul";
             this.abc=0;
         },
-        //第二个列表函数
+        //第二个导航栏函数，分类，品牌，尺寸
+        
         goto2(n){
             for(var i=0;i<this.list2.length;i++){
                 if(n==i){
                    this.alter1=n;
                    this.abc=1;
-                    return;
+                  //根据n的值发送不同的ajax请求
+                  if(n==0){
+                      //console.log("发送ajax请求啦分类");
+                      var url="/index/fenlei1"
+                      this.axios(url).then(result=>{
+                          this.fiter1=result.data;
+                      
+                      })
+                   
+                  }else if(n==1){
+                      console.log("发送品牌啦");
+                      var url = "/index/brand1"
+                      this.axios(url).then(result=>{
+                         //将拿到的数据保存在数组中
+                         this.fiter2=result.data;
+                       
+                      }) 
+                  }else if(n==2){
+                     // console.log("发送尺寸啦");
+                  }
+
                 }
             }
-           
         },
         //商品列表函数
         commlist(){
@@ -202,18 +247,44 @@ export default {
             })
         },
         //点击变色的函数
-        clickLi(n){
-            for(var i=0;i<this.fiter1.length;i++){
+        clickLi1(n){
+           
+               for(var i=0;i<this.fiter1.length;i++){
                 if(i==n){
-                  this.alter2=i;
+                 this.dhl1=n;
                  return;
                 }
             }
+           
+        },
+        clickLi2(n){
+            for(var i=0;i<this.fiter2.length;i++){
+                if(i==n){
+                    this.dhl2=n;
+                    return;
+                }
+            }
+        },
+        clickLi3(n){
+                           for(var i=0;i<this.fiter3.length;i++){
+                if(i==n){
+                    this.dhl3=n;
+                }
+            }
+        },
+        //按钮重置函数
+        chongzhi(){
+            this.dhl1="",
+            this.dhl2="",
+            this.dhl3="";
+        },
+        //确认按钮1
+        ok1(n){
+           console.log(n);
+
         }
     },
-    created(){
-        this.commlist();
-    },
+
     components:{
         "titleBack":TitleBack
     }
@@ -319,6 +390,7 @@ export default {
 /* 隐藏小boss样式 */
 .minBoss{
    /* display:none; */
+   width:100%;
    position:absolute;
    top:5.6rem;
 }
@@ -428,6 +500,12 @@ export default {
     transform:rotate(45deg)
  }
 /* 两个按钮 */
+.btn2{
+    width:100%;
+    height:3rem;
+    float:left;
+    padding-top:1rem;
+}
 .anniu{
     display:inline-block;
     box-sizing:border-box;
@@ -436,11 +514,14 @@ export default {
     border:0;
     background:white;
     outline:0;
-    margin-top:4rem;
+    font-weight:8   00;
+    font-size:1rem;
 }
 .anniu2{
     background-color:blueviolet;
 }
+
+
 /* 商品列表样式 */
 .listbox1{
    float:left;
@@ -448,6 +529,7 @@ export default {
    width:48%;
   margin:0 0 0.2rem 0.2rem;
   text-align:left;
+  text-decoration:none;
 }
 .listcontent:after{
     display:block;
@@ -496,6 +578,7 @@ export default {
     background:blueviolet;
     color:wheat !important;
     text-align:center;
+    border-radius:0.2rem;
 }
 
 
