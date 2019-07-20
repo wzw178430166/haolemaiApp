@@ -43,7 +43,7 @@
                     <p class="me-p"><span>尺寸</span><router-link to="#" class="measur_rout">尺码对照表</router-link> </p>
                     <div class="measure_item">
                         <ul>
-                            <li v-for="(elem,i) of sizes" :key="i" :class="action==i?'mead_active':''" @click="goto(elem)">
+                            <li v-for="(elem,i) of sizes" :key="i" :class="action==i?'mead_active':''" @click="goto(elem,i)">
                                     {{elem}}
                             </li>
                         </ul>
@@ -100,7 +100,7 @@ export default {    //打包后直接可在服务器host里运行
         return {
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
-            action:"",   //切换尺寸的样式
+            action:0,   //切换尺寸的样式
            sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
@@ -122,19 +122,16 @@ export default {    //打包后直接可在服务器host里运行
           }
     },
     methods: {
-         moves(){  //手指滑动屏幕触发
+         moves(){  //手指滑动屏幕触发1
              console.log(1111);
          },
-         goto(n){
-             console.log(n);
+         goto(n,index){
              sessionStorage.setItem("size",n);
-               //  for(var i=0;i<this.sizes.length;i++){
-            //    //  console.log(i);
-            //      if(n==i){
-            //          console.log('aaa');
-            //          this.active=n;
-            //      }
-            //  }
+                for(var i=0;i<this.sizes.length;i++){
+                 if(index==i){
+                     this.action=index;
+                 }
+             }
          },
            adds(){    //保存尺寸在客户端方便取出来     //加入购物车
            //  var flag=true;
@@ -270,32 +267,6 @@ export default {    //打包后直接可在服务器host里运行
     props:["lid"], //准备接参数  这是地址栏传的lid  222222
 
     created(){  
-        //相当于window.onload
-    //发送请求商品的轮播图片
-   // this.axios()
-    // window.addEventListener("resize",()=>{
-    //   this.innerWidth=window.innerWidth;
-    // })
-    //调用函数方法发送axions请求
-         //三个请求串行  这个有先后执行完顺序，执行完时间是相加一起的。 （看企业需要：需要播完号再打电话用这个，不需要等待用Porseim.all()这个方法）
-          /*    this.getCount('a').then(
-                  function(count){ //count是请求中返回的结果
-                    total+=count;
-                   // console.log(total);
-                   return this.getCount('b'); //又发了一次异步请求，发了一个带参是‘b’的值 相当于 new Promise()
-                  }
-              )
-              .then(function(count){
-                  total+=count;
-                  return this.getCount('c') //等于又一个new Promise()
-                  // console.log(total);
-              })
-         //.then 一直请求then累加 总和
-         //.then  在getCount('c') 后执行
-            .then(function(count){                
-                total+=count;
-                console.log(total);
-            })  */
 
 
   },
