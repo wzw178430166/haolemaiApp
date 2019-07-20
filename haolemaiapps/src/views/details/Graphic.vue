@@ -53,13 +53,7 @@
           <!-- 图片    -->
           <div class="list_img">
               <ul>
-                  <li><img src="http://127.0.0.1:8095/img/details/8.png" alt=""></li>
-                    <li><img src="http://127.0.0.1:8095/img/details/9.png" alt=""></li>
-                      <li><img src="http://127.0.0.1:8095/img/details/10.png" alt=""></li>
-                        <li><img src="http://127.0.0.1:8095/img/details/11.png" alt=""></li>
-                          <li><img src="http://127.0.0.1:8095/img/details/12.png" alt=""></li>
-                            <li><img src="http://127.0.0.1:8095/img/details/13.png" alt=""></li>
-                              <li><img src="http://127.0.0.1:8095/img/details/14.png" alt=""></li>
+                  <li v-for="(elem,i) of dibu" :key="i"><img :src="elem.img" alt=""></li>
               </ul>
           </div>
     </div>     
@@ -67,7 +61,8 @@
 <script>
 export default {
     props:{
-        list:{default:""} 
+        list:{default:""},
+        dibu:{default:""} 
     },
     data(){
         return {

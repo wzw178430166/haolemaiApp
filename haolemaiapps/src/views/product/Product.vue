@@ -14,8 +14,21 @@
            </div>
            <!-- 隐藏小boss（div) -->
             <div class="minBoss" >
-                <ul :class="alter1==j?'min_ul2':'min_ul'" class="min_ul"  v-for="(elem,j) of list2" :key="j" >
-                    <li class="min_li" v-for="(item,i) of 40" :key="i">测试啦啦啦啦啦阿拉蕾</li>
+                <ul class="min_ul" :class="alter1==0?'min_ul2':''" >
+                    <li class="min_li" v-for="(item,i) of fiter1" :key="i" @click="clickLi(i)"
+                   :class="alter2==i?'min_li2':''">{{item}}</li>
+                    <button class="anniu">重置</button>
+                    <button class="anniu anniu2">确认</button>
+                </ul>
+                <ul :class="alter1==1?'min_ul2':''" class="min_ul" >
+                    <li class="min_li" v-for="(item,i) of fiter2" :key="i" @click="clickLi(i)"
+                   :class="alter2==i?'min_li2':''">{{item}}</li>
+                    <button class="anniu">重置</button>
+                    <button class="anniu anniu2">确认</button>
+                </ul>
+                <ul :class="alter1==2?'min_ul2':''" class="min_ul" >
+                    <li class="min_li" v-for="(item,i) of fiter3" :key="i" @click="clickLi(i)"
+                   :class="alter2==i?'min_li2':''">{{item}}</li>
                     <button class="anniu">重置</button>
                     <button class="anniu anniu2">确认</button>
                 </ul>
@@ -134,11 +147,15 @@ export default {
             alter:"",//用来存储改变的值
             list1:["默认","销量","价格","折扣","筛选"],
             list2:["分类","品牌","尺寸"],
+            fiter1:["男鞋","女鞋","男凉鞋","女凉鞋","男休闲鞋","女休闲鞋","男布鞋","女布鞋"],
+            fiter2:["杂牌","阿迪达斯","362度","踏步","鸿星尔克","1903牌"],
+            fiter3:["C6","C7","C8","C9","C10","C11","J2","J3","J4","J5"],
             abc:"0",//用来存储背景的值
             comm_list:[],//用来存储商品列表
             pno:1,
             ps:4,
-            alter1:"-1"
+            alter1:"-1",
+            alter2:""
         }
     },methods:{
         goto1(n){
@@ -183,6 +200,15 @@ export default {
                 this.comm_list=t;
                 this.pno++;
             })
+        },
+        //点击变色的函数
+        clickLi(n){
+            for(var i=0;i<this.fiter1.length;i++){
+                if(i==n){
+                  this.alter2=i;
+                 return;
+                }
+            }
         }
     },
     created(){
@@ -213,8 +239,17 @@ export default {
     float:left;
     line-height:2rem;
     padding-left:1rem;
+    font-size:1rem;
 }
-
+.min_li2{
+    border-radius:0.5rem;
+    background:blueviolet;
+    font-size:1rem;
+    line-height:2rem;
+    font-weight:700;
+    color:black;
+    background-image:linear-gradient(bottom,blueviolet,white);
+}
 /* 最外层父元素 */
 .content{
   width:100%;
@@ -401,6 +436,7 @@ export default {
     border:0;
     background:white;
     outline:0;
+    margin-top:4rem;
 }
 .anniu2{
     background-color:blueviolet;

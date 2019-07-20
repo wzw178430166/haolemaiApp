@@ -43,8 +43,9 @@
                     <p class="me-p"><span>尺寸</span><router-link to="#" class="measur_rout">尺码对照表</router-link> </p>
                     <div class="measure_item">
                         <ul>
-                            <li v-for="(elem,i) in size[0]" :key='i'>{{elem}}</li>
-                            
+                            <li v-for="(elem,i) of sizes" :key="i" :class="action==i?'mead_active':''" @click="goto(i)">
+                                {{elem}}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
                   <mt-tab-container v-model="active">
                  <!-- 子面板 -->
                  <mt-tab-container-item id="tab1">
-                         <graphic :list=specs[0]></graphic>
+                         <graphic :list=specs[0] :dibu=dibu></graphic>
                  </mt-tab-container-item>
                  <mt-tab-container-item id="tab2">
                   <div style="width:100%;height:500px;">
@@ -99,7 +100,8 @@ export default {    //打包后直接可在服务器host里运行
         return {
           //  selected:"加入购物车", //底部导航   
             //鞋子尺寸码数分别有哪些
-            sizenum:{num:'7rem'},
+            action:"",   //切换尺寸的样式
+           sizenum:{num:'7rem'},
             active:'tab1', //图片评论
             listj:[
                   {img:'http://127.0.0.1:8095/img/lunbotu/1.jpg'},
@@ -113,13 +115,23 @@ export default {    //打包后直接可在服务器host里运行
             pics:[],    //商品轮播图片
             specs:[],  //商品规格
             size:[] ,  //鞋子的码数
+            dibu:[],   //底部图片
+            sizes:[]   //对象转数组
           }
     },
     methods: {
          moves(){  //手指滑动屏幕触发
              console.log(1111);
          },
-      
+         goto(n){
+           //  console.log(n);
+             for(var i=0;i<9;i++){
+                // console.log(i);
+                 if(n==i){
+                     this.active=n;
+                 }
+             }
+         },
          
            //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
 
@@ -211,6 +223,13 @@ export default {    //打包后直接可在服务器host里运行
          this.pics=res.data.pics;
          this.specs=res.data.specs;
         this.size=res.data.size;
+        this.dibu=res.data.dibu;
+        var sizes=res.data.size; //把对象转为数组
+        var arr=[];
+        for(var i in sizes[0]){
+            arr.push(sizes[0][i]);
+        }
+        this.sizes=arr;
          });
    Date.prototype.toLocaleString = function() {
      //  console.log(this.getDate());
@@ -275,6 +294,7 @@ export default {    //打包后直接可在服务器host里运行
     /* 尺寸 */
     .measure_item ul{width:100%;height: 3rem;list-style: none;margin-top: .75rem;padding-bottom: 1.5rem;}
     .measure_item ul li{width:3.5rem;height: 2.5rem;line-height:2.5rem;list-style: none;float: left;background-color: #F4F4F4;text-align: center;margin-right: .5rem;border-radius: 10%;margin-top: 1rem;}
+    /*尺寸样式*/
     .measure_item ul .mead_active{background: #D70057!important;}
     .measure{width:100%;clear: both;}
     .measure .me-p{padding-top: 2rem;}
