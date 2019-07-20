@@ -11,7 +11,7 @@
      <img class="im" src="http://127.0.0.1:8095/img/cart/cart.png" style="width:150px;height:100px">
      <div class="kong">购物车还空着呢，快去挑选吧</div>
      <a href="javascript:;" class="tiao">去首页</a>
-     <a href="javascript:;" class="zhuan_">我的收藏{{task}}</a>
+     <a href="javascript:;" class="zhuan_">我的收藏</a>
      <div class="weini_">
        <img src="http://127.0.0.1:8095/img/cart/xiexian.png" style="width:20px">
        <span>为你推荐</span>

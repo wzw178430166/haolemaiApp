@@ -117,7 +117,8 @@ export default {    //打包后直接可在服务器host里运行
             size:[] ,  //鞋子的码数
             dibu:[],   //底部图片
             sizes:[],   //对象转数组
-            lidss:[]
+            lidss:[],
+           
           }
     },
     methods: {
@@ -135,18 +136,30 @@ export default {    //打包后直接可在服务器host里运行
             //      }
             //  }
          },
-           adds(){    //保存尺寸在客户端方便取出来
+           adds(){    //保存尺寸在客户端方便取出来     //加入购物车
+           //  var flag=true;
           var  size=sessionStorage.getItem("size");
          if(size!=undefined){
           var price=this.products.price;
           //lid   price  size  http://127.0.0.1:8095/shopping/add?lid=5&price=66&size=66
-       //   this.axios.get('shopping/add',{params:{lid:this.lid,price}});
            console.log(size);
              console.log(price);
                console.log(this.lidss);
+             
+       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size}}).then(res=>{
+           console.log(res)
+       }).catch(err=>{console.log(err);
+       });
                }else{
                //请选择码数  做一个弹框用mint-ui
-               console.log('请选择码数');
+              this.$toast({
+                    message:"请选择码数",//内容
+                    position:"middle",   //位置
+                    duration:3000,     //时间
+                    className:"mytoast",//添加样式
+                  //  iconClass:"iconfont icon-food-cake"
+                    });
+             //  console.log('请选择码数');
                }
          },
            //封装Promise方法请求 //多个请求造成回调地狱 所有使用这个封装的方法
@@ -290,6 +303,13 @@ export default {    //打包后直接可在服务器host里运行
 </script>
 
 <style scoped>
+      /*mint-ui弹出请选择尺码的样式*/
+    .mytoast{
+  background-color:#fff !important;
+  color:#e4393c !important;
+  font-size:19px !important;
+  border:1px solid #333  !important; 
+}
     /*底部导航*/
     .tab_button{width:100%;height: 3.5rem;position: fixed;bottom: 0;display:flex;}
     .tab_button div:nth-child(1){width:25%;box-sizing: border-box;text-align: center;background-color: #FFFFFF;border-top:1px solid #e8e8e8;border-right: 1px solid #e8e8e8;}
