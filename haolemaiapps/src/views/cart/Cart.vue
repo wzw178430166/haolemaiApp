@@ -6,6 +6,7 @@
       <img src="http://127.0.0.1:8095/img/cart/goindex.png">    
      </div>
 
+      <div id="contents" v-if="open.length==0">
      <div class="nasp">现在登录同步电脑和手机购物车中商品&nbsp;&nbsp;&nbsp;&nbsp;<span>登录</span></div> 
     <div class="er_">
      <img class="im" src="http://127.0.0.1:8095/img/cart/cart.png" style="width:150px;height:100px">
@@ -18,6 +19,47 @@
        <img src="http://127.0.0.1:8095/img/cart/xiexian.png" style="width:20px;margin-left:5px" >
      </div>
     </div>
+    </div>
+
+    <div class="qqqqq" v-else>
+      <div class="shangping">
+      <div class="cont_tit">
+        <span>减满</span>
+        <span>满2件件200元，还差1件享受此活动。</span>
+        <span><img src="../../img/back.png" alt="" class="tit_back"></span>
+      </div>
+         <div class="cont_conts">
+           <div>
+        <mt-checklist v-model="val5" :options="['已选(0)']">
+           </mt-checklist> 
+           </div>
+           <div>
+           <img :src="open[0].img" alt="" class="div_img">
+           </div>
+           <div class="shpping_item">
+            <p>{{open[0].lname}}</p>
+            <p>尺寸：{{open[0].size}}</p>
+            <p>￥{{open[0].price}}</p>
+           </div>
+           </div> 
+     </div>
+    </div>
+      <div class="jiesuan" v-if="open.length!=0">
+        <div class="xuanze">
+            <mt-checklist v-model="val5" :options="['已选(0)']">
+           </mt-checklist> 
+        </div>
+         <div class="jiesuan_text">
+           <!-- <button @click="handleCheck">读取复选框内容</button> -->
+            <div class="jisuan_bott">
+              <p>结算：</p>
+              <p>优惠：</p>
+            </div>
+            <div>
+              <mt-button @click.native="handleCheck" size="large" class="btnsaa">去结算</mt-button>
+            </div>
+           </div>
+      </div>
     <!-- 图片鞋子商品 -->
     <div class="_xie">
        <div>
@@ -151,11 +193,14 @@
 export default {
     data(){
         return {
-         
+         open:[],
+         val5:[]
         }
     },
     methods: {
-       
+        handleCheck(){
+        console.log(this.val5);
+     } 
           
         
     },
@@ -165,7 +210,8 @@ export default {
     created(){
       //加载后发送请求购物车商品
           //请求购物车商品
-             this.axios.get('shopping/cart?id=1').then(res=>{  
+             this.axios.get('shopping/cart?id=1').then(res=>{ 
+               this.open=res.data.data;
                 console.log(res);
              }).catch(err=>{console.log(err)})
     }
@@ -174,8 +220,40 @@ export default {
 </script>
 
 <style scoped>
-#a1{
+.jisuan_bott p{margin-top: .3rem;}
+.div_img{width:100%;height: 100%;}
+.btnsaa{width:100%;height: 100%;background: #D70057;color: white;}
+.jiesuan_text div:nth-child(1){width:60%;background: blue;}
+.jiesuan_text div:nth-child(2){width:40%;background: brown;}
+.jiesuan_text{width:60%;border:1px solid red;display: block;height: 4rem;display: flex;}
+.jiesuan .xuanze{width:40%;background: red;height: 4rem;}
+.jiesuan{box-sizing:border-box;display:flex;width:100%;height: 4rem;border: 1px solid red;position: fixed;bottom: 0;}
+.cont_conts div:first-child{width:10%}
+.cont_conts div:nth-child(2){width:30%}
+.shpping_item{width:60%;border:1px solid red;text-align: left;}
+.shpping_item p:nth-child(2){color: #666;}
+.shpping_item p:nth-child(3){color: #D70057;}
+.cont_conts{width:100%;height: 6rem;border:1px solid blue;display:flex;box-sizing: border-box;}
+.tit_back{transform: rotate(180deg);height: 2.5rem;}
+.cont_tit{width:100%;height: 2.5rem;
+ display:flex;justify-content:space-around;
+ align-items:center;background: #F5F5F5;
+}
+.cont_tit span:first-child{font-size:.6rem;color:crimson;border:1px solid red;padding:5px
+ 
+}
+.cont_tit span:nth-child(2){font-size:.8rem;color:#000;}
 
+.qqqqq{
+  width:100%;
+  height: 400px;
+  border:1px solid red;
+  overflow: auto;
+}
+#contents{
+  width:100%;border:1px solid red;
+}
+#a1{
 text-align:center;
 width:100%;
 height:auto;
