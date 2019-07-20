@@ -14,22 +14,29 @@
               <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
                <div>
                   <a href="#"><img src="http://127.0.0.1:8095/img/appimg/biaoti/01.png" class="biaoti_img1"></a>
-                  <a v-for="(item,i) of 6" :key="i" href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top0.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top0.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top1.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top2.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top3.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top4.png" class="biaoti_img"></a>
+                  <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top5.png" class="biaoti_img"></a>
                </div>
                <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
             </div>
             <!-- 标题栏2 -->
-            <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/top6.png" class="biaoti2_img" v-for="(item,i) of 6" :key="i"> </div>
+            <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/02.jpg" class="biaoti2_img"> </div>
             <!-- 导航栏 -->    
             <ul class="dhl_ul">
                <li v-for="(item,i) of navbar" :key="i" class="dhl_li" :class="action==i?'dhl_li1':''" @click="goto(i)">{{item}}</li>
             </ul>
             <!-- 类别循环 -->
             <ul class="shangpin_ul" :style="action==j?'display:block':''" v-for="(item,j) of navbar" :key="j">
-              <h3>{{action}}</h3>
+        
                <!-- 商品循环 -->
                <li class="shangpin_li" v-for="(item,i) of list" :key="i">
-                  <router-link to="#" class="shangpin_a">
+
+             
+                  <router-link to="Product" class="shangpin_a">
                      <div class="shangpin">
                         <img :src="item.img_url">
                         <p>
@@ -116,7 +123,7 @@ export default {
          action:true,
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
-         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],    
+         navbar:["精选","运动","服饰","潮鞋","全球购"],    
          fenlei:[],    
          navbara:0,
          action:"",
@@ -147,10 +154,10 @@ export default {
                var Obj={j:j+1};
                var url="index/brand"
                this.action=n;
-                console.log(this.action);
+               
                this.axios.get(url,{params:Obj}).then(result=>{
                   this.list=result.data;
-                  console.log(this.list);
+                  
                })
             }
          }
@@ -237,12 +244,13 @@ export default {
 .biaoti_img{
    width:90px;
    height:90px;
-   border:1px solid #000;
+  
 }
-.biaoti_img1{width:180px;height:90px;border:1px solid #000;}
+.biaoti_img1{width:180px;height:90px;}
 .biaoti2_img{
-   width:120px;
-   height:129px;
+   width:100%;
+   box-sizing:border-box;
+   height:7rem;
    border:1px solid #000;
 }
 .s1{width:100%;height:10px;}

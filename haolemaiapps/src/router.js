@@ -20,7 +20,7 @@ import Panel2 from "./views/index/common/Panel2.vue"
 Vue.use(Router)
 export default new Router({
   routes: [
-    {path:"/Panel2",component:Panel2},//待删
+    {path:"/Panel2",component:Panel2},//待删1
     {path: '/', redirect: '/HomeIndex' }, //重定向，index 什么都没有输入就重定向到首页
     {path:"/search",component:search},
     {path:'/Personal',component:Personal},   //个人中心

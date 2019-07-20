@@ -3,7 +3,7 @@
     <div class="title_back">
        <p @click="$router.back(-1)"><img :src="img_url" /></p>
          <span>{{msg}}</span>
-         <router-link  to="/"><img :src="img_url2"/></router-link>
+         <router-link  to="/HomeIndex"><img :src="img_url2"/></router-link>
     </div>
         </div>
 </template>
