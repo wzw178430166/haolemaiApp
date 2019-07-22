@@ -16,20 +16,20 @@
             <div class="minBoss" >
                 <!-- 分类 -->
                 <ul class="min_ul" :class="alter1==0?'min_ul2':''" >
-                    <li class="min_li" v-for="(item,i) of fiter1" :key="i" @click="clickLi1(i)"
-                   :class="dhl1==i?'min_li2':''" >{{item.title}}</li>
+                    <li class="min_li" v-for="(item,i) of fiter1" :key="i" @click="clickLi1(i,item.title)"
+                   :class="dhl1==i?'min_li2':''"  :data-lid="item.title">{{item.title}}</li>
                    <div class="btn2">
                      <button class="anniu" @click="chongzhi">重置</button>
                     <button class="anniu anniu2" @click="ok1(dhl1)">确认</button>
                    </div>
                 </ul>
-
+                <!-- 品牌筛选 -->
                 <ul :class="alter1==1?'min_ul2':''" class="min_ul" >
-                    <li class="min_li" v-for="(item,i) of fiter2" :key="i" @click="clickLi2(i)"
-                   :class="dhl2==i?'min_li2':''">{{item.brand}}</li>
+                    <li class="min_li" v-for="(item,i) of fiter2" :key="i" @click="clickLi2(i,item.brand)"
+                   :class="dhl2==i?'min_li2':''" :data-lid2="item.brand">{{item.brand}}</li>
                    <div class="btn2">
                         <button class="anniu" @click="chongzhi">重置</button>
-                        <button class="anniu anniu2">确认</button>
+                        <button class="anniu anniu2" @click="ok2(dhl2)">确认</button>
                    </div>
         
                 </ul>
@@ -160,7 +160,7 @@ export default {
             alter:"",//用来存储改变的值
             list1:["默认","销量","价格","折扣","筛选"],
             list2:["分类","品牌","尺寸"],
-            fiter1:[],
+            fiter1:[],//存储品牌的数据
             fiter2:[],
             fiter3:["C6","C7","C8","C9","C10","C11","J2","J3","J4","J5"],
             abc:"0",//用来存储背景的值
@@ -172,7 +172,10 @@ export default {
             dhl1:"",
             dhl2:"",
             dhl3:"",
-            slrzt:[]
+            slrzt:[],
+            lid:"",//用来存储传输筛选的数据
+            lid2:""
+
         }
     },methods:{
         goto1(n){
@@ -249,21 +252,29 @@ export default {
                 console.log(result.data);
             })
         },
-        //点击变色的函数
-        clickLi1(n){
-           
+        //点击变色的函数,分类
+        clickLi1(n,even){
+              var lid = event.target.dataset;
                for(var i=0;i<this.fiter1.length;i++){
                 if(i==n){
                  this.dhl1=n;
+                 console.log(this.fiter1);
+                 console.log(lid);//获取品牌数据之后，点击确定按钮，赋值给确定按钮，然后确定按钮发送ajax请求。
+                 this.lid=lid;
                  return;
                 }
             }
            
         },
-        clickLi2(n){
+        //函数2，品牌
+        clickLi2(n,even){
+             var lid2 = event.target.dataset;
             for(var i=0;i<this.fiter2.length;i++){
                 if(i==n){
                     this.dhl2=n;
+                   
+                    this.lid2=lid2.lid2;
+                    console.log(this.lid2);
                     return;
                 }
             }
@@ -281,10 +292,28 @@ export default {
             this.dhl2="",
             this.dhl3="";
         },
-        //确认按钮1
+        //确认按钮,筛选分类
         ok1(n){
-           console.log(n);
-
+         var fenl = this.lid.lid;
+           //发送ajax请求，将brand传入服务端
+         var url="/index/btn"
+           this.axios(url,{params:{fenl:fenl}}).then(result=>{
+               console.log(result.data);
+               //将得到的数据，传入要显示的数组
+                this.comm_list=result.data;
+                //点击确定按钮之后，需要将选择栏隐藏
+           })
+           this.clear();
+        },
+        //确认按钮2，筛选品牌
+        ok2(n){
+            var brand = this.lid2
+            var url = "/index/btn2"
+            this.axios(url,{params:{brand:brand}}).then(result=>{
+                console.log(result);
+                this.comm_list=result.data;
+            })
+              this.clear();
         }
     },
 

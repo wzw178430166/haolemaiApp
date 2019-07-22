@@ -17,14 +17,13 @@
          </div>
          <!-- 下部分内容 -->
       <div class="content_none" :class="active==i?'content_block':''" v-for="(item,i) of biaoti" :key="i" >
-         <p class="right_p">—{{1}}—</p>
+         <p class="right_p">—{{(i+1)}}—</p>
          <!-- 右边内容 下面图片 -->
          <div class="right_tu">  
-            <router-link  style="text-decoration:none" to="#" class="right_a" v-for="(item,i) of list" :key="i">
-               <div>
+            <router-link  to="Product" class="right_a" v-for="(item,i) of list" :key="i" @click.native="select($event)" :data-lid="item.title">         
                   <img :src="item.img_url">
                    <p>{{item.title}}</p>
-                </div>
+                 
             </router-link>
           </div>
         </div>
@@ -45,12 +44,12 @@ export default {
       return{
          active:"",
          biaoti:["运动生活","休闲服饰","时尚鞋品","快乐儿童","全球购","家居家纺","腕表首饰","家用电器"],
-         list:[]
+         list:[],
+         sele:""//用来传递选择的种类数据
       }
    },methods:{
       //左侧导航栏跳转事件
       goto(e){
-     
          //遍历数组获取下标，下标与当前点击的位置一致时触发
          for(var i=0;i<this.biaoti.length;i++){
             if(e==i){
@@ -66,7 +65,14 @@ export default {
                })
              }
            }
-          }
+      },
+      //点击图片跳转到指定的页面
+      //然后需要发送一个数据给另外的组件，让组件跳转到指定的查询内容
+      select(e){
+         var ss = e.currentTarget.dataset.lid;
+         console.log(ss);
+         this.sele=ss;
+      }
    }
 }
 </script>
@@ -135,11 +141,11 @@ p{
    flex-direction:row;
    flex-wrap:wrap;
 }
-.right_a div{
+
+.right_a{
    display:block;
    width:5.8rem;
    height:6rem;
-   
    text-decoration:none;
 }
 .right_a img{
