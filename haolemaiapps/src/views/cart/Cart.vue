@@ -1,7 +1,7 @@
 <template>
   <div id="a1">
     <div id="a3">
-      <img src="http://127.0.0.1:8095/img/cart/back.png">
+      <img src="http://127.0.0.1:8095/img/cart/back.png" @click="goback">
       <div class="wo_">我的购物车</div>
       <router-link to="/HomeIndex"><img src="http://127.0.0.1:8095/img/cart/goindex.png"></router-link> 
      </div>
@@ -22,10 +22,11 @@
     </div>
 
     <div class="qqqqq" v-else>
-      <div class="shangping">
+
+      <div class="shangping" v-for="(elem,i) of open" :key="i">
       <div class="cont_tit">
-        <span>减满</span>
-        <span>满2件件200元，还差1件享受此活动。</span>
+        <span>{{elem.title_sec}}</span>
+        <span>{{elem.subtitle}}</span>
         <span><img src="../../img/back.png" alt="" class="tit_back"></span>
       </div>
          <div class="cont_conts">
@@ -34,12 +35,12 @@
            </mt-checklist> 
            </div>
            <div>
-           <img :src="open[0].img" alt="" class="div_img">
+           <img :src="elem.img" alt="" class="div_img">
            </div>
            <div class="shpping_item">
-            <p>{{open[0].lname}}</p>
-            <p>尺寸：{{open[0].size}}</p>
-            <p>￥{{open[0].price}}</p>
+            <p>{{elem.lname}}</p>
+            <p>尺寸：{{elem.size}}</p>
+            <p>￥{{elem.price}}</p>
            </div>
            </div> 
      </div>
@@ -201,6 +202,10 @@ export default {
         handleCheck(){
         console.log(this.val5);
      } 
+     ,
+     goback(){
+       this.$router.go(-1);//返回上一层
+     }
           
         
     },
