@@ -165,12 +165,14 @@ export default {
             fiter3:["C6","C7","C8","C9","C10","C11","J2","J3","J4","J5"],
             abc:"0",//用来存储背景的值
             comm_list:[],//用来存储商品列表
+            //点击筛选按钮，请求所有带有标记的数据回来，然后替换掉主页面循环的数组内容
             pno:1,
             ps:6,
             alter1:"-1",
             dhl1:"",
             dhl2:"",
-            dhl3:""
+            dhl3:"",
+            slrzt:[]
         }
     },methods:{
         goto1(n){
@@ -244,6 +246,7 @@ export default {
                var t=this.comm_list.concat(result.data.data);
                 this.comm_list=t;
                 this.pno++;
+                console.log(result.data);
             })
         },
         //点击变色的函数

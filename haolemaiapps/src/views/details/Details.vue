@@ -78,7 +78,7 @@
                   <!-- 底部导航栏 http://127.0.0.1:8095/shopping/cart-->
                 <div class="tab_button">  <!--  http://127.0.0.1:8095/img/details/cart.png -->
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
-                   <div><router-link to="/shopping/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
+                   <div><router-link to="/cart?id=1"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
                    <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
                    <div @click.prevent="adds"><router-link to="#">加入购物车</router-link></div>
                 </div>
@@ -115,7 +115,8 @@ export default {    //打包后直接可在服务器host里运行
             dibu:[],   //底部图片
             sizes:[],   //对象转数组
             lidss:[],
-            img:[]
+            img:[],
+          //  lid:[]   //商品编号
 
           }
     },
@@ -257,6 +258,7 @@ export default {    //打包后直接可在服务器host里运行
     this.axios.get('details/',{params:{lid:this.$route.query.lid}}).then(res=>{
         console.log(res.data)
          this.products=res.data.products;
+         //this.lid
          this.pics=res.data.pics;
          this.specs=res.data.specs;
         this.size=res.data.size;
@@ -264,7 +266,8 @@ export default {    //打包后直接可在服务器host里运行
         this.lidss=this.$route.query.lid;
          var sizes=res.data.size; //把对象转为数组
          var img=res.data.img;  //把图片对象转为数组
-         console.log(img)
+        // this.lid=res.data.lid;
+       //  console.log(lid)
         var arr=[];
         // var arrimg=[];
         //  for(var i in img){
