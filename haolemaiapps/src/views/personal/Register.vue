@@ -159,6 +159,7 @@ export default {
             },
         register() {
             var phone=this.phone;
+            console.log(phone);
             var imageCode=this.imageCode;
             var getmobilecode=this.getmobilecode;
             var phonereg=/^[1]([3-9])[0-9]{9}$/;
