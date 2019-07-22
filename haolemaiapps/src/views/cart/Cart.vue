@@ -3,15 +3,15 @@
     <div id="a3">
       <img src="http://127.0.0.1:8095/img/cart/back.png">
       <div class="wo_">我的购物车</div>
-      <img src="http://127.0.0.1:8095/img/cart/goindex.png">    
+      <router-link to="/HomeIndex"><img src="http://127.0.0.1:8095/img/cart/goindex.png"></router-link> 
      </div>
 
       <div id="contents" v-if="open.length==0">
-     <div class="nasp">现在登录同步电脑和手机购物车中商品&nbsp;&nbsp;&nbsp;&nbsp;<span>登录</span></div> 
+     <div class="nasp" v-show="open.length!=0">现在登录同步电脑和手机购物车中商品&nbsp;&nbsp;&nbsp;&nbsp;<span><router-link to="/Login">登录</router-link></span></div> 
     <div class="er_">
      <img class="im" src="http://127.0.0.1:8095/img/cart/cart.png" style="width:150px;height:100px">
      <div class="kong">购物车还空着呢，快去挑选吧</div>
-     <a href="javascript:;" class="tiao">去首页</a>
+     <router-link to="/HomeIndex" class="tiao">去首页</router-link>
      <a href="javascript:;" class="zhuan_">我的收藏</a>
      <div class="weini_">
        <img src="http://127.0.0.1:8095/img/cart/xiexian.png" style="width:20px">
@@ -210,7 +210,7 @@ export default {
     created(){
       //加载后发送请求购物车商品
           //请求购物车商品
-             this.axios.get('shopping/cart?id=1').then(res=>{ 
+             this.axios.get('shopping/cart').then(res=>{ 
                this.open=res.data.data;
                 console.log(res);
              }).catch(err=>{console.log(err)})
@@ -251,7 +251,7 @@ export default {
   overflow: auto;
 }
 #contents{
-  width:100%;border:1px solid red;
+  width:100%;
 }
 #a1{
 text-align:center;
