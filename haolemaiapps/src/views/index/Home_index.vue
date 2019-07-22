@@ -31,7 +31,7 @@
             </ul>
             <!-- 类别循环 -->
             <ul class="shangpin_ul" :style="action==j?'display:block':''" v-for="(item,j) of navbar" :key="j">
-              <h3>{{action}}</h3>
+        
                <!-- 商品循环 -->
                <li class="shangpin_li" v-for="(item,i) of list" :key="i">
 
@@ -66,7 +66,7 @@
          </mt-tab-container-item>   
          <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
          <!--面板5-->
-         <mt-tab-container-item id="user">面板5</mt-tab-container-item>  
+         <mt-tab-container-item id="user"></mt-tab-container-item>  
          </mt-tab-container>   
       <!-- 底部导航栏 -->
       <mt-tabbar v-model="active" fixed>
@@ -74,8 +74,8 @@
             <tabbar01 
             tu1="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye1.png"
             tu2="http://127.0.0.1:8095/img/appimg/index_img/tabbar_shouye0.png"
-            :panduan="torf[0].s"
-            ></tabbar01>
+            :panduan="torf[0].s">
+            </tabbar01>
          </mt-tab-item>
           <mt-tab-item id="fenlei" @click.native="select(1)">
             <tabbar01
@@ -123,7 +123,7 @@ export default {
          action:true,
          active:"shouye",
          torf:[{s:true},{s:false},{s:false},{s:false},{s:false},{a:false}],
-         navbar:["精选","运动","服饰","潮鞋","全球购","儿童"],    
+         navbar:["精选","运动","服饰","潮鞋","全球购"],    
          fenlei:[],    
          navbara:0,
          action:"",
@@ -154,10 +154,10 @@ export default {
                var Obj={j:j+1};
                var url="index/brand"
                this.action=n;
-                console.log(this.action);
+               
                this.axios.get(url,{params:Obj}).then(result=>{
                   this.list=result.data;
-                  console.log(this.list);
+                  
                })
             }
          }

@@ -8,8 +8,26 @@
         </header>
         <!--注册页主体部-->
         <main>
+            <!--手机号框-->
             <div class="loginfillbox">
-                <label for="mobiletel">
+                <mt-field v-model="phone" class="register-input" :attr="{ maxlength: 11 }" placeholder="请输入11位手机号码" type="tel"></mt-field>
+             <!--图像验证码框-->
+                <mt-field v-model="imageCode" class="register-input"   placeholder="请输入图片验证码" type="tel">
+                    <span  @click="refreshCode">
+                        <!--<img src="" id="getcode_img">-->
+                        <Random-code id="geticoncode" :identifyCode="identifyCode">
+                        </Random-code>
+                    </span>
+                </mt-field>
+                 <!--手机验证码框-->
+                <mt-field v-model="getmobilecode" class="register-input"   placeholder="请输入手机验证码" type="tel">
+                    <span class="getcode" id="registergetcode">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">发送验证码</font>
+                        </font>
+                    </span>
+                </mt-field>
+                <!--<label for="mobiletel">
                     <div class="login-input-wrap" >
                         <input type="tel"  placeholder="请输入11位手机号码" id="mobiletel" class="register-input" onkeyup="value=value.replace(/[^\d]/g,'')">
                         <span class="del-input" id="image-code">
@@ -40,7 +58,8 @@
                             </font>
                         </span>
                     </div>
-                </label>
+                </label>-->
+
             </div>
             <div class="loginnowbox">
                 <span class="msgreply">
@@ -50,7 +69,7 @@
                 </span>
                 <font style="vertical-align: inherit;">
                     <font style="vertical-align: inherit;">
-                        <input type="button" value="注册" id="registerbtn" class="purplebtn">
+                        <input type="button" value="注册" @click="register" id="registerbtn" class="purplebtn">
                     </font>
                     <span class="userremind">
                         <font style="vertical-align: inherit;">
@@ -70,7 +89,7 @@
                     </a>
                 </span>
                 <p class="hreflogin">
-                    <a  href="http://127.0.0.1:8080/#/Login">
+                         <a  href="http://127.0.0.1:8080/#/Login">
                          <font style="vertical-align: inherit;">
                              <font style="vertical-align: inherit;">已有账号，去登陆</font>
                          </font>
@@ -108,13 +127,67 @@
     </div>
 </template>
 <script>
+    import RandomCode from "./Random_code.vue" ; 
 export default {
+    components:{
+        RandomCode
+    },
     data() {
         return {
-            
+            phone:"",
+            imageCode:"",
+            getmobilecode:"",
+            identifyCodes: "1234567890",
+            identifyCode: ""
         }
     },
-}
+    methods:{
+        randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        },
+        refreshCode() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
+            },
+            makeCode(o, l) {
+            for (let i = 0; i < l; i++) {
+                this.identifyCode += this.identifyCodes[
+                this.randomNum(0, this.identifyCodes.length)
+                ];
+            }
+            // console.log(this.identifyCode);
+            },
+        register() {
+            var phone=this.phone;
+            console.log(phone);
+            var imageCode=this.imageCode;
+            var getmobilecode=this.getmobilecode;
+            var phonereg=/^[1]([3-9])[0-9]{9}$/;
+            if(!phonereg.test(phone)){  
+                this.$toast("手机号格式不正确");
+                return;
+            }
+            if(imageCode!=this.identifyCode){
+                this.$toast("验证码不正确");
+                return;
+            }
+            var url="user/add";
+            var obj1={phone:phone};
+            this.axios.post(url,{obj1:obj1}).then(result=>{
+                if(result[0]<0){
+                    this.$toast("该手机号已注册");
+                }else{
+                    // this.$router.go(-1);
+                    this.$router.push("login");
+                }
+            })
+        },
+        },
+        mounted() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
+        },
+    }
 </script>
 <style scoped>
     /*所有元素的样式*/
@@ -161,10 +234,10 @@ export default {
         position: relative;
         border-bottom: 1px solid #e5e5e5;
     }
-    .loginfillbox .login-input-wrap .register-input, .loginfillbox .login-input-wrap .realname-input {
+     .register-input, .realname-input {
         height: 1.95rem;
         line-height: normal;
-        padding: .15rem 0 .15rem .8rem;
+        padding-left:.8rem; 
         color: #333;
         font-size: .9rem;
         outline:none;
@@ -203,8 +276,8 @@ export default {
     }
 
     /*图片验证码样式*/
-    .login-input-wrap #geticoncode {
-        width: 8rem;
+     #geticoncode {
+        margin-right:-0.3rem;
     }
     .loginfillbox .login-input-wrap .icondel {
         right: 4.7rem;
@@ -239,11 +312,11 @@ export default {
     .loginfillbox .login-input-wrap .codedel b {
         margin-left: .5rem;
     }
-    .login-input-wrap .getcode {
+     .getcode {
         display: block;
         position: absolute;
-        top: 0;
-        right: 0;
+        top: -1.2rem;
+        right: -0.7rem;
         width: 5.1rem;
         height: 2.25rem;
         line-height: 2.25rem;
@@ -256,6 +329,7 @@ export default {
 
     .loginnowbox{
         padding:0 .5rem;
+        margin-top:0.5rem;
     }
 
     /*提示错误信息样式*/
