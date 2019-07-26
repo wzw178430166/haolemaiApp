@@ -11,7 +11,7 @@
             <img style="width:100%;" src="http://127.0.0.1:8095/img/appimg/biaoti/guanggao.png">
             <!-- 标题栏1 -->
             <div> 
-              <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
+              <!-- <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"> -->
                <div>
                   <a href="#"><img src="http://127.0.0.1:8095/img/appimg/biaoti/01.png" class="biaoti_img1"></a>
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top0.png" class="biaoti_img"></a>
@@ -21,7 +21,7 @@
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top4.png" class="biaoti_img"></a>
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top5.png" class="biaoti_img"></a>
                </div>
-               <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
+               <!-- <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"> -->
             </div>
             <!-- 标题栏2 -->
             <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/02.jpg" class="biaoti2_img"> </div>

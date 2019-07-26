@@ -29,7 +29,7 @@
                    <p><span>尺码：40</span><span>数量：1</span></p>
                </div>
                <div class="ww_right">
-                   245$
+                   ￥245
                </div>
             </div>
               <div class="www">
@@ -41,7 +41,7 @@
                    <p><span>尺码：40</span><span>数量：1</span></p>
                </div>
                <div class="ww_right">
-                   245$
+                   ￥245
                </div>
             </div>
          
@@ -512,7 +512,7 @@ export default {
         return {
            
             popupVisible:"",
-              active:0,
+              active:1,
             turess:0,
                  addressSlots: [
           {

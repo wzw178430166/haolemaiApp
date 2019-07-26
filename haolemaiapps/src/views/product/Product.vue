@@ -351,7 +351,7 @@ export default {
     line-height:2rem;
     font-weight:700;
     color:black;
-    background-image:linear-gradient(bottom,blueviolet,white);
+   /* background-image:linear-gradient(bottom,blueviolet,white);*/
 }
 /* 最外层父元素 */
 .content{
