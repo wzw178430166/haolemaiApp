@@ -8,11 +8,13 @@ import Personal from "./views/personal/Personal.vue"       //个人中心
 import HomeIndex from "./views/index/Home_index.vue"   //首页
 import Product from "./views/product/Product.vue"  //引入商品列表
 import Cart from "./views/cart/Cart.vue"  //引入购物车
+import Indent from "./views/cart/Indent.vue"  //引入订单
 import Details from "./views/details/Details.vue"  //引入产品详情页
 import search from "./components/search.vue"
 //测试，待删
 import Panel2 from "./views/index/common/Panel2.vue"
-
+ //测试
+import test from "./assets/test.vue"
 
 
 
@@ -29,7 +31,9 @@ export default new Router({
     {path:'/HomeIndex',component:HomeIndex},   //首页
     {path:'/Product',component:Product},    //跳转到商品列表
     {path:'/Details/details',component:Details,props:true},  //商品详情页 111111
-    {path:'/cart',component:Cart}   //添加购物车   //this.$store 共享数据
+    {path:'/cart',component:Cart},   //添加购物车   //this.$store 共享数据
+    {path:'/indent',component:Indent},   //添加订单
+    {path:"/test",component:test}  //测试路由
   ]
 })
 

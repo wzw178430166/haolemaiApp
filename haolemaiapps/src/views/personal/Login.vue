@@ -191,6 +191,7 @@ export default {
             var inputCode=this.inputCode;
             var phonereg=/^[1]([3-9])[0-9]{9}$/;
             var upwdreg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+           localStorage.setItem("phone",phone);  //永久保存用户名
             console.log(inputCode);
             console.log(this.identifyCode);
             if(!phonereg.test(phone)){  

@@ -34,6 +34,9 @@ export default {
 <style scoped>
     .title_back{width:100%;height: 3.25rem;background-color: #F5F5F5;line-height: 3.25rem;
     display: flex;justify-content: space-between;color:#444;font-size:1rem;
+        position: fixed;
+    top: 0;
+    z-index: 3;
     }
     .mian{width:100%;}
    
