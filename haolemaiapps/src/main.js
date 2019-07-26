@@ -22,7 +22,7 @@ import axios from "./axios"
 
 //6.引入vuex  注册vuex组件  创建store   将store保存vue实例中
 import Vuex from "vuex"
-
+Vue.prototype.$http=axios;
 
 //import mydetails from "./store/details"  //引入详情列表的仓库数据
 Vue.use(Vuex)
