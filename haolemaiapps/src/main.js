@@ -24,9 +24,13 @@ import axios from "./axios"
 
 //6.引入vuex  注册vuex组件  创建store   将store保存vue实例中
 import Vuex from "vuex"
+<<<<<<< HEAD
 
 //7.引入min-ui css样式
 //import "./lib/mui/css/mui.css"
+=======
+Vue.prototype.$http=axios;
+>>>>>>> 30f406721e5f7ed17f32389156fa5fd97d9635b5
 
 //import mydetails from "./store/details"  //引入详情列表的仓库数据
 Vue.use(Vuex)

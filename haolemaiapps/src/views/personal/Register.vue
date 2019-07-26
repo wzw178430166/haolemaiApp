@@ -10,22 +10,22 @@
         <main>
             <!--手机号框-->
             <div class="loginfillbox">
-                <mt-field v-model="phone" class="register-input" :attr="{ maxlength: 11 }" placeholder="请输入11位手机号码" type="tel"></mt-field>
+                <mt-field v-model="phone" @change="verifyPhone" class="register-input" placeholder="请输入11位手机号码" type="tel"></mt-field>
              <!--图像验证码框-->
-                <mt-field v-model="imageCode" class="register-input"   placeholder="请输入图片验证码" type="tel">
+                <mt-field v-model="imageCode" id="geticoncode" class="register-input"   placeholder="请输入图片验证码" type="tel">
                     <span  @click="refreshCode">
                         <!--<img src="" id="getcode_img">-->
-                        <Random-code id="geticoncode" :identifyCode="identifyCode">
+                        <Random-code  :identifyCode="identifyCode">
                         </Random-code>
                     </span>
                 </mt-field>
                  <!--手机验证码框-->
-                <mt-field v-model="getmobilecode" class="register-input"   placeholder="请输入手机验证码" type="tel">
-                    <span class="getcode" id="registergetcode">
-                        <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">发送验证码</font>
+                <mt-field v-model="getMobileCode"  class="register-input" placeholder="请输入手机验证码" type="tel">
+                    <button :disabled="disabled" @click="validateBtn" class="getcode" >
+                        <font v-if="btnTitle" style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">{{btnTitle}}</font>
                         </font>
-                    </span>
+                    </button> 
                 </mt-field>
                 <!--<label for="mobiletel">
                     <div class="login-input-wrap" >
@@ -61,6 +61,7 @@
                 </label>-->
 
             </div>
+            
             <div class="loginnowbox">
                 <span class="msgreply">
                     <font style="vertical-align: inherit;">
@@ -136,9 +137,11 @@ export default {
         return {
             phone:"",
             imageCode:"",
-            getmobilecode:"",
+            getMobileCode:"",
             identifyCodes: "1234567890",
-            identifyCode: ""
+            identifyCode: "",
+            disabled: false,
+            btnTitle:"获取验证码"
         }
     },
     methods:{
@@ -157,11 +160,53 @@ export default {
             }
             // console.log(this.identifyCode);
             },
-        register() {
+        validateBtn(){
+            var phone=this.phone;
+            var phonereg=/^[1]([3-9])[0-9]{9}$/;
+            if(!phonereg.test(phone)){  
+                this.$toast("手机号格式不正确");
+                return;
+            } 
+            var  time=60;
+            var  timer=setInterval(()=>{
+                if(time==0){
+                    clearInterval(timer);
+                    this.btnTitle="获取验证码";
+                    this.disabled=false;
+                }else{
+                    this.btnTitle=time+"秒后重试";
+                    this.disabled=true;
+                    time--;
+                }
+            },1000);
+            var getMobileCode=this.getMobileCode;
+            var url="user/sms_send";
+            var tpl_id="175174";
+            var key="42e08385b111867a9ffb0909e427ef3b";
+            // let param = new URLSearchParams();
+            // param.append('tpl_id','175174');
+            // param.append('Key', '42e08385b111867a9ffb0909e427ef3b');
+            // param.append('mobile',phone);
+            // console.log(phone)
+            // var captchaCondition={phone:phone,tpl_id:tpl_id,key:key};
+            this.axios.post(url,{phone:phone,tpl_id:tpl_id,key:key},{headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+        }).then(result=>{
+                if(result.tpl_id!=getMobileCode){
+                     this.$toast("手机验证码不正确");
+                     
+                }
+            })
+        },
+        verifyPhone(){
+            
+        },
+        register() { 
             var phone=this.phone;
             console.log(phone);
             var imageCode=this.imageCode;
-            var getmobilecode=this.getmobilecode;
+            console.log(imageCode)
             var phonereg=/^[1]([3-9])[0-9]{9}$/;
             if(!phonereg.test(phone)){  
                 this.$toast("手机号格式不正确");
@@ -170,15 +215,15 @@ export default {
             if(imageCode!=this.identifyCode){
                 this.$toast("验证码不正确");
                 return;
-            }
+            } 
             var url="user/add";
             var obj1={phone:phone};
             this.axios.post(url,{obj1:obj1}).then(result=>{
                 if(result[0]<0){
-                    this.$toast("该手机号已注册");
+                    this.$toast("注册失败");
                 }else{
                     // this.$router.go(-1);
-                    this.$router.push("login");
+                    this.$router.push("Cart");
                 }
             })
         },
@@ -301,8 +346,8 @@ export default {
         width: 4rem;
     }
 
-    /*短信验证码样式*/
-    .loginfillbox .login-input-wrap #getmobilecode {
+    /*短信验证码样式*/ 
+    .loginfillbox .login-input-wrap #getMobileCode {
         width: 8rem;
     }
     .login-input-wrap .codedel {
@@ -314,14 +359,13 @@ export default {
     }
      .getcode {
         display: block;
-        position: absolute;
-        top: -1.2rem;
-        right: -0.7rem;
         width: 5.1rem;
         height: 2.25rem;
         line-height: 2.25rem;
         text-align: center;
         z-index: 3;
+        border: 1px solid transparent;  
+        outline: none;    
         border-left: 1px solid #e5e5e5;
         color: #d70057;
         font-size: .9rem;
