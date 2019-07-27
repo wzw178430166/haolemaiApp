@@ -304,7 +304,7 @@ export default {    //打包后直接可在服务器host里运行
   border:1px solid #333  !important; 
 }
     /*底部导航*/
-    .tab_button{width:100%;height: 3.5rem;position: fixed;bottom: 0;display:flex;}
+    .tab_button{width:100%;height:3.5rem;position:fixed;bottom: 0;display:flex;}
     .tab_button div:nth-child(1){width:25%;box-sizing: border-box;text-align: center;background-color: #FFFFFF;border-top:1px solid #e8e8e8;border-right: 1px solid #e8e8e8;}
      .tab_button div:nth-child(1) a{font-size: .75rem;color:#7A7D81;text-decoration: none;padding-top: .63rem;}
      .tab_button div:nth-child(1) a img{width:1.9rem;height: 1.7rem;margin-top: .3rem;}
