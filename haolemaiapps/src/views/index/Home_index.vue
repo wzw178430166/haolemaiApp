@@ -11,7 +11,7 @@
             <img style="width:100%;" src="http://127.0.0.1:8095/img/appimg/biaoti/guanggao.png">
             <!-- 标题栏1 -->
             <div> 
-              <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
+              <!-- <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"> -->
                <div>
                   <a href="#"><img src="http://127.0.0.1:8095/img/appimg/biaoti/01.png" class="biaoti_img1"></a>
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top0.png" class="biaoti_img"></a>
@@ -21,7 +21,7 @@
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top4.png" class="biaoti_img"></a>
                   <a href="javascript:;"><img src="http://127.0.0.1:8095/img/appimg/biaoti/top5.png" class="biaoti_img"></a>
                </div>
-               <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1">
+               <!-- <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"> -->
             </div>
             <!-- 标题栏2 -->
             <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/02.jpg" class="biaoti2_img"> </div>
@@ -64,7 +64,11 @@
          <mt-tab-container-item id="temai">
             <Panel3></Panel3>
          </mt-tab-container-item>   
-         <mt-tab-container-item id="gouwuche"> 面板4</mt-tab-container-item>
+         <mt-tab-container-item id="gouwuche">
+           
+          <cart></cart>
+
+         </mt-tab-container-item>
          <!--面板5-->
          <mt-tab-container-item id="user"></mt-tab-container-item>  
          </mt-tab-container>   
@@ -114,6 +118,7 @@ import Hed01 from "./common/Hed01"
 import Tabbar01 from "./common/Tabbar01"
 import Panel2 from "./common/Panel2"
 import Panel3 from "./common/Panel3"
+import Cart from "../cart/Cart"
 export default {
    created(){
        this.goto(0); 
@@ -135,6 +140,7 @@ export default {
       "tabbar01":Tabbar01,
       "Panel2":Panel2,
       "Panel3":Panel3,
+      "cart":Cart
    },methods:{
       select(n){//底部导航栏
          //创建一个循环，遍历所有按钮,然后匹配对应下标

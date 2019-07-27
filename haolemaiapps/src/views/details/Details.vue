@@ -78,9 +78,16 @@
                   <!-- 底部导航栏 http://127.0.0.1:8095/shopping/cart-->
                 <div class="tab_button">  <!--  http://127.0.0.1:8095/img/details/cart.png -->
                                 <!-- http://127.0.0.1:8095/img/details/keep.png -->
-                   <div><router-link to="/cart?id=1"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p></router-link></div>
-                   <div><router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link></div>
-                   <div @click.prevent="adds"><router-link to="#">加入购物车</router-link></div>
+                   <div>
+                       <router-link to="/cart"><img src="http://127.0.0.1:8095/img/details/cart.png"><p>购物车</p>
+                       </router-link>
+                      <mt-badge size="small" class="item_ee" color="red">{{$store.getters.getCartCount}}</mt-badge>
+                   </div>
+                   <div>
+                       <router-link to="#"><img src="http://127.0.0.1:8095/img/details/keep.png"><p>收藏</p></router-link>
+                       
+                       </div>
+                   <div @click.prevent="adds"><span class="spantext">加入购物车</span></div>
                 </div>
           <!-- <div style="width:100%;height:500px;background:red;"></div> -->
     </div>
@@ -146,17 +153,30 @@ export default {    //打包后直接可在服务器host里运行
            //  var flag=true;
           var  size=sessionStorage.getItem("size");
            var  img_url=sessionStorage.getItem("img_url");
+           var phone=localStorage.getItem("phone");
+          
          if(size!=undefined&&img_url!=undefined){
           var price=this.products.price;
           var lname=this.products.lname;
+          var subtitle=this.products.subtitle;
+          var title_sec=this.products.title_sec;
+          var title=this.products.title;
           //lid   price  size  http://127.0.0.1:8095/shopping/add?lid=5&price=66&size=66
-           console.log(size);
-             console.log(price);
-               console.log(this.lidss);
-
-             
-       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size,img:img_url,lname:lname}}).then(res=>{
+         //  console.log(size);
+           //  console.log(price);
+            //   console.log(this.lidss);
+         
+             //加入购物车
+       this.axios.get('shopping/add',{params:{lid:this.lidss,price:price,size:size,img:img_url,lname:lname,subtitle:subtitle,title_sec:title_sec,title:title,phone:phone}}).then(res=>{
            console.log(res)
+                this.$toast({
+                    message:"加入购物车成功",//内容
+                    position:"middle",   //位置
+                    duration:3000,     //时间
+                    className:"mytoast",//添加样式
+                  //  iconClass:"iconfont icon-food-cake"
+                    });
+                     this.$store.commit("increment");
        }).catch(err=>{console.log(err);
        });
                }else{
@@ -289,13 +309,15 @@ export default {    //打包后直接可在服务器host里运行
     props:["lid"], //准备接参数  这是地址栏传的lid  222222
 
     created(){  
-
-
+           
+ 
   },
 }
 </script>
 
 <style scoped>
+.item_ee{position: relative;top:-3rem;left:1.2rem}
+  .spantext{color:white;}
       /*mint-ui弹出请选择尺码的样式*/
     .mytoast{
   background-color:#fff !important;
