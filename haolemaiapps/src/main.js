@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+
 //以上三行不要动保存原来位置
 //原因:引入有序
 //第三方组件库在下面引入
 //1:完整引入mint-ui
 //import iView from 'iview';
+
 //Vue.use(iView);
 import MintUI from 'mint-ui' 
 //2:单引引入mint-ui样式
@@ -71,6 +73,6 @@ Vue.config.productionTip = false
 new Vue({
   router,     //路由文件
   render: h => h(App),  //渲染  创建一个根组件
-  store,     //将vuex组件添加到Vue实例中
+  store,   //将vuex组件添加到Vue实例中
   //mydetails  //商品详情的共享数据
 }).$mount('#app')

@@ -81,7 +81,7 @@
                 <!-- 价格区间 -->
                 <div>
                     <div class="biaoti">
-                            <span>价格区间（元）</span>
+                            <span>价格区间（元</span>
                     </div>
                     <div>
                         <div class="shaixuan">
@@ -156,7 +156,7 @@ export default {
         this.commlist();
     },
     data(){
-        return {
+        return{
             alter:"",//用来存储改变的值
             list1:["默认","销量","价格","折扣","筛选"],
             list2:["分类","品牌","尺寸"],

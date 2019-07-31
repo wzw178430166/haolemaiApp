@@ -10,3 +10,10 @@ axios.defaults.baseURL="http://127.0.0.1:8095/"
 //5.将axios注册vue实例
 Vue.prototype.axios=axios
 //6.在main.js  引入axios.js
+
+
+
+
+
+
+

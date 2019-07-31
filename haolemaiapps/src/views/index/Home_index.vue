@@ -24,7 +24,7 @@
                <!-- <img src="http://127.0.0.1:8095/img/appimg/biaoti/tabbar_shouye0.png" class="s1"> -->
             </div>
             <!-- 标题栏2 -->
-            <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/02.jpg" class="biaoti2_img"> </div>
+            <div><img src="http://127.0.0.1:8095/img/appimg/biaoti/02.jpg" class="biaoti2_img"></div>
             <!-- 导航栏 -->    
             <ul class="dhl_ul">
                <li v-for="(item,i) of navbar" :key="i" class="dhl_li" :class="action==i?'dhl_li1':''" @click="goto(i)">{{item}}</li>
@@ -160,7 +160,6 @@ export default {
                var Obj={j:j+1};
                var url="index/brand"
                this.action=n;
-               
                this.axios.get(url,{params:Obj}).then(result=>{
                   this.list=result.data;
                   
@@ -276,12 +275,7 @@ export default {
 .navbara{
    color:blueviolet;border-bottom:3px solid blueviolet;
 }
-/* 导航栏商品样式 */
-
-
-
-
-
+/* 导航栏商品样式*/
 
 </style>
 

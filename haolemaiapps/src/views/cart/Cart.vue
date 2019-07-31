@@ -5,12 +5,14 @@
       <div class="wo_">我的购物车</div>
       <router-link to="/HomeIndex"><img src="http://127.0.0.1:8095/img/cart/goindex.png"></router-link> 
      </div>
-<div class="nasp" v-if="open.length==0&&code!=1">现在登录同步电脑和手机购物车中商品&nbsp;&nbsp;&nbsp;&nbsp;<span><router-link to="/Login">登录</router-link></span></div> 
+<div class="nasp" v-if="open.length==0&&code!=1">现在登录同步电脑和手机购物车中商品&nbsp;&nbsp;&nbsp;&nbsp;
+<span><router-link to="/Login">登录</router-link></span>
+</div> 
       <div id="contents" v-if="open.length==0">
      
     <div class="er_">
      <img class="im" src="http://127.0.0.1:8095/img/cart/cart.png" style="width:150px;height:100px">
-     <div class="kong">购物车还空着呢，快去挑选吧</div>
+     <div class="kong">购物车还空着呢,快去挑选吧</div>
      <router-link to="/HomeIndex" class="tiao">去首页</router-link>
      <a href="javascript:;" class="zhuan_">我的收藏</a>
      <div class="weini_">
@@ -39,10 +41,12 @@
            <div>
            <img :src="elem.img" alt="" class="div_img">
            </div>
+
            <div class="shpping_item">
             <p>{{elem.lname}}</p>
             <p>尺寸：{{elem.size}}</p>
             <p>￥{{elem.price}}</p>
+
              <div class="input_btn" @click="zengjia">
                <button>-</button>
                <span class="spanq">{{n}}</span>
@@ -56,7 +60,8 @@
      </div>
     </div>
      <div class="tuijian" v-if="open.length!=0">
-               <img src="../../img/recommend.png" alt="" class="imgte"> <span>为你推荐</span>  <img src="../../img/recommend.png" alt="" class="imgte"> 
+               <img src="../../img/recommend.png" alt="" class="imgte"> <span>为你推荐</span>  
+               <img src="../../img/recommend.png" alt="" class="imgte"> 
      </div>
       <div class="jiesuan" v-if="open.length!=0">
         <div class="xuanze">    
@@ -151,7 +156,7 @@
          <img src="http://127.0.0.1:8095/img/cart/4881.jpg" style="width:150px;height:150px">
          <p>男式&nbsp;&nbsp;PPZ2019夏季抓痕印花<br>短袖T恤男</p>
           <p class="meiyuan">¥89</p>
-        </div>
+        </div>querystring
      </div>
        <div class="_shangyi">
        <div>
@@ -195,7 +200,7 @@
          <img src="http://127.0.0.1:8095/img/cart/4888.jpg" style="width:150px;height:130px">
          <p>Adidas阿迪达斯&nbsp;&nbsp;LOGO花<br>休闲双肩背包</p>
           <p class="meiyuan">¥169</p>
-        </div>
+        </di1v>
         <div>
          <img src="http://127.0.0.1:8095/img/cart/4889.jpg" style="width:150px;height:130px">
          <p>男式&nbsp;&nbsp;阿迪达斯猎鹰&nbsp;<br>Predator&nbsp;&nbsp;19+FG运动足球鞋</p>
@@ -203,7 +208,7 @@
         </div>
       </div>
       
-
+   </div>
   </div>
 
   
@@ -232,8 +237,8 @@ export default {
       },
         handleCheck(){
         console.log(this.val5);
-     } 
-     ,
+     }, 
+     
      goback(){
        this.$router.go(-1);//返回上一层
      }
@@ -242,7 +247,7 @@ export default {
             var cb=e.target.checked;
             //依据状态修改列表cb
             for(var elem of this.open){
-                elem.cb=cb;   //因为每个单选框都使用了双向绑定，循环赋值为 全选按钮的checked值切换全选全不选
+                elem.cb=cb;  //因为每个单选框都使用了双向绑定，循环赋值为 全选按钮的checked值切换全选全不选
                
             }
         }     
@@ -258,7 +263,6 @@ export default {
                     //添加cb属性 ，用在按钮的checked
                     item.cb=false;
 
-                    
                 }
                  this.open=row;
                  this.code=res.data.code;
@@ -277,11 +281,12 @@ export default {
            this.axios.get(url,{params:obj}).then(result=>{
                console.log(result);
                this.loadMore();
+
             //    if(result.data.code==1){
             //        this.list=this.list.slice(1);
             //    }
            });
-                       }).catch(err=>{
+            }).catch(err=>{
               // console.log(err);
            });
              //3.如果用户选择“确认"
