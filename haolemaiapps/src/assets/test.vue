@@ -269,8 +269,7 @@ export default {
 .address ul .active{
   color:red;
 }
-
-
+ 
 /*
  <mt-popup v-model="areaVisible"  popup-transition="popup-fade" position="bottom"  style="width: 100%;" >
     <mt-picker :slots="areaList" value-Key="name" :show-toolbar="true"  @change="selectArea" class="page-picker">

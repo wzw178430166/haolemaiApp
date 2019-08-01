@@ -45,6 +45,7 @@ var store = new Vuex.Store({
       increment(state){
         state.cartCount++;
       },
+
       clear(state){
         state.cartCount=0;
       },
